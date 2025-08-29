@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPR GUI 2</title>
+    <!-- Arquivos CSS -->
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/popup.css">
+
+    <!-- Elementos Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
+
+    <!-- Importação de Scripts ou Libs -->
+    <!-- Bibliotecas externas -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Scripts ISS -->
+    <script src="./scripts/iss.js"></script>
+
+    <!-- Recursos Globais -->
+    <script src="./scripts/env.js"></script>
+    <script src="./scripts/services/global_services.js"></script>
+    <script src="./scripts/services/core_services.js"></script>
+
+</head>
+
+<body>
+
+    <div class="error_popup" id="error_popup" style="display: none;">
+        <div class="error_container">
+            <div class="error_message">
+                <h1>Error...</h1>
+                <p id="error_text"></p>
+            </div>
+            <div class="buttons">
+                <button class="reload_button" onclick="ReloadPage()">Reload</button>
+                <button class="error_button" onclick="ClosePopup()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm_popup" style="display: none;">
+        <div class="confirm_container">
+            <div class="confirm_message">
+                <p>Serviço iniciado</p>
+            </div>
+            <div class="confirm_buttons">
+                <button class="confirm_button" onclick="location.reload()">RELOAD</button>
+                <button class="confirm_button"
+                    onclick="document.querySelector('div.confirm_popup').style.display='none'">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="canvas" style="display: none;" ></canvas>
+
+    <script src="./scripts/UI/ui_renders.js"></script>
+    <script src="./scripts/main.js"></script>
+
+</body>
+
+</html>

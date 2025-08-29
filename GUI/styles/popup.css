@@ -1,0 +1,129 @@
+/* Error Popup */
+.error_popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.512);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error_container {
+    width: 50%;
+    padding: 2%;
+    box-sizing: border-box;
+
+    background-color: rgb(12, 12, 12);
+    border-radius: 5px;
+    font-family: "Share Tech", sans-serif;
+    font-size: 14pt;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.949);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.error_button {
+    cursor: pointer;
+    align-self: rigth;
+    border: none;
+    padding: 2% 4%;
+
+    font-family: "Share Tech", sans-serif;
+    font-size: 13pt;
+    color: rgba(255, 255, 255, 0.949);
+    background-color: rgb(254, 40, 40);
+    transition: all .2s ease;
+}
+
+.error_button:active {
+    transform: scale(0.95);
+    background-color: rgb(233, 32, 32);
+}
+
+.error_button:hover {
+    background-color: rgb(252, 60, 60);
+}
+
+.reload_button {
+    cursor: pointer;
+    border: none;
+    padding: 2% 4%;
+
+    font-family: "Share Tech", sans-serif;
+    font-size: 13pt;
+    color: rgba(255, 255, 255, 0.949);
+    background-color: rgb(16, 115, 255);
+    transition: all .2s ease;
+}
+
+.reload_button:active {
+    transform: scale(0.95);
+    background-color: rgb(19, 102, 218);
+}
+
+.reload_button:hover {
+    background-color: rgb(54, 136, 252);
+}
+
+/* Confirm Popup */
+.confirm_popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.619);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.confirm_container {
+    width: 45%;
+    height: auto;
+    padding: 2%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(44, 44, 48);
+    border-radius: 5px;
+
+    
+    font-family: "Share Tech", sans-serif;
+    font-size: 14pt;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.949);
+}
+
+.confirm_message {
+    font-size: 16pt;
+    color: white;
+}
+
+.confirm_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.confirm_button {
+    border: none;
+    padding: 2% 4%;
+
+    font-family: "Share Tech", sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.308);
+    transition: all .2s ease;
+}
+
+.confirm_button:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.949);
+    background-color: rgb(20, 73, 246);
+    box-shadow: 0px 0px 15px rgb(20, 73, 246);
+}
