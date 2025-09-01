@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv/config'
 
 const config = {
   auth: {
@@ -6,7 +6,8 @@ const config = {
     password: process.env.AUTH_PASSWORD,
   },
   
-  rest_url: process.env.REST_API_ADDRESS
+  rest_url: process.env.REST_API_ADDRESS,
+  port: process.env.PORT || 8081
 }
 
-module.exports = config
+export default config

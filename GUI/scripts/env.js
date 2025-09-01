@@ -1,3 +1,3 @@
 env = {
-    proxy_server: 'http://localhost:3003'
+    proxy_server: 'http://localhost:3000'
 }

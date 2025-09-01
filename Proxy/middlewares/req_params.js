@@ -1,6 +1,6 @@
-const z = require('zod')
+import z from 'zod'
 
-function RequestParamsController(params) {
+export function RequestParamsController(params) {
     const ParamsSchema = z.object({
         cam_id: z.string().length(1),
         time: z.string()
@@ -13,5 +13,3 @@ function RequestParamsController(params) {
     else
         throw new Error('Os parâmetros da rota são inválidos')
 }
-
-module.exports = RequestParamsController

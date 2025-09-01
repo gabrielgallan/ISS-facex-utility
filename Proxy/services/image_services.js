@@ -1,7 +1,7 @@
-const config = require("../env.js")
-const axios = require("axios")
+import config from '../env.js'
+import axios from 'axios'
 
-async function GetApiFrame(params) {
+export async function GetApiFrame(params) {
     try {
         const { cam_id, time } = params
         const url = `${config.rest_url}/api/v1/cameras/${cam_id}/image/${time}`
@@ -15,5 +15,3 @@ async function GetApiFrame(params) {
         throw new Error(err.message)
     }
 }
-
-module.exports = GetApiFrame

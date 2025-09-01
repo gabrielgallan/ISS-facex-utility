@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: .
+    container_name: Proxy-Server
+    ports:
+      - "3000:8081"
+    environment:
+      - PORT=${PORT}
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      - REST_API_ADDRESS=${REST_API_ADDRESS}
+    command: npm start
