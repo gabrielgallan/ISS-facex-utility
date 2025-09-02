@@ -20,11 +20,13 @@ ISScustomAPI.onEvent(async function(type, id, action, params) {
 //Handlers
 function ExtractDetection(log) {
     const { id, track_id, cam_id, timestamp, visualization, demographics } = log
+    const url = env.proccess.PROXY + String(env.proccess.PORT)
+    const route = `/proxy_api/v1/cameras/${cam_id}/image/${adjustmentDate(timestamp)}`
     return { 
         id,
         track_id,
         cam_id,
-        image: `${env.proxy_server}/proxy_api/v1/cameras/${cam_id}/image/${adjustmentDate(timestamp)}`,
+        image: url + route,
         timestamp: adjustmentDate(timestamp),
         visualization,
         age: demographics.age.mean,

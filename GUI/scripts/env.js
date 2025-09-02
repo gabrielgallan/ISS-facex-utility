@@ -1,3 +1,6 @@
-env = {
-    proxy_server: 'http://localhost:3000'
+const env = {
+    proccess: {
+        PORT: 3000,
+        PROXY: 'http://localhost:'
+    }
 }
