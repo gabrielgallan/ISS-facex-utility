@@ -29,8 +29,8 @@ function DrawBoxInImage(ctx, box, img, det) {
     const y = (box.y / 100) * img.height
     const width = (box.width / 100) * img.width
     const height = (box.height / 100) * img.height
-    const msg = `${det.gender} - ${det.age}`
-    const colors = GenderColorHandler(det.gender)
+    const msg = det.id
+    const colors = EventColorHandler(det.event)
 
     // Caixa do bounding box
     ctx.fillStyle = colors.bk
@@ -49,11 +49,11 @@ function DrawBoxInImage(ctx, box, img, det) {
 
 
 
-function GenderColorHandler(gender) {
-    if (gender === 'MALE') {
+function EventColorHandler(event) {
+    if (event === 'Detection') {
+        return { line: 'rgba(255, 28, 28, 1)', bk: "rgba(255, 16, 16, 0.12)" }
+    } else {
         return { line: 'rgba(0, 255, 225, 1)', bk: "rgba(0, 255, 225, 0.18)" }
-    } else if (gender === 'FEMALE') {
-        return { line: 'rgba(255, 0, 60, 1)', bk: "rgba(255, 0, 60, 0.17)" }
     }
 }
 
