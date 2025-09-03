@@ -15,19 +15,13 @@ function UnSubscribeTrackUpdates() {
     ISScustomAPI.unsubscribe('FACE_X_SERVER', '*', 'TRACK_UPDATE')
 }
 
-// => FaceX Detections Configurations
-let config = {
-    LAST_TRACK_UPDATE: 0,
-    TRACK_UPDATE_INTERVAL: 450, //Intervalo do Track Update
-    PROXY_URL: (env.proccess.PROXY + String(env.proccess.PORT))
-}
-
 ISScustomAPI.onEvent(async function (type, id, action, params) {
     switch (`${type}:${action}`) {
         case 'FACE_X_SERVER:DETECTION':
             UnSubscribeTrackUpdates()
-            const detection = ExtractDetection(JSON.parse(params.comment))
-            await RenderDetectionImage(detection)
+                const detection = ExtractDetection(JSON.parse(params.comment))
+                const image = await GetImageFromPython(detection)
+                await RenderDetectionImage(image)
             setTimeout(() => { SubscribeTrackUpdates() }, 2000)
             break
         case 'FACE_X_SERVER:TRACK_UPDATE':
@@ -36,7 +30,8 @@ ISScustomAPI.onEvent(async function (type, id, action, params) {
             if (now - config.LAST_TRACK_UPDATE >= config.TRACK_UPDATE_INTERVAL) {
                 config.LAST_TRACK_UPDATE = now
                     const track = ExtractTrackUpdate(JSON.parse(params.comment))
-                    await RenderDetectionImage(track)
+                    const image = await GetImageFromPython(track) 
+                    await RenderDetectionImage(image)
             }
             break
         default:
@@ -49,7 +44,7 @@ function ExtractDetection(log) {
     return {
         event: 'Detection',
         id,
-        image: `${config.PROXY_URL}/proxy_api/v1/cameras/${cam_id}/image/${DetectionDate(timestamp)}`,
+        image: `${env.proccess.PROXY}/proxy_api/v1/cameras/${cam_id}/image/${DetectionDate(timestamp)}`,
         visualization
     }
 }
@@ -59,7 +54,7 @@ function ExtractTrackUpdate(log) {
     return {
         event: 'Track',
         id: track_id,
-        image: `${config.PROXY_URL}/proxy_api/v1/cameras/${feed}/image/${UpdateDate(timestamp)}`,
+        image: `${env.proccess.PROXY}/proxy_api/v1/cameras/${feed}/image/${UpdateDate(timestamp)}`,
         visualization: bounding_box,
     }
 }

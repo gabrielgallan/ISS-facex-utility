@@ -1,6 +1,6 @@
 
 window.addEventListener('load', async () => {
-    SubscribeDetections()
     SubscribeTrackUpdates()
+    SubscribeDetections()
     ConfirmPopup()
 })
