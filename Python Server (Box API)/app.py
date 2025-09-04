@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import Response
+from fastapi.responses import Response, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware  # <--- IMPORTANTE
 from PIL import Image, ImageDraw, ImageFont
 import requests
@@ -12,7 +12,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # libera tudo (pode restringir para ["http://127.0.0.1:5500"])
     allow_credentials=True,
-    allow_methods=["POST"],  # libera todos os métodos (GET, POST, etc)
+    allow_methods=["*"],  # libera todos os métodos (GET, POST, etc)
     allow_headers=["*"],  # libera todos os headers
 )
 
@@ -45,7 +45,7 @@ def draw_bounding_box(img, data):
 
     # Texto abaixo do retângulo
     text = str(data.get("id"))
-    font = ImageFont.truetype("arialbd.ttf", 30)
+    font = ImageFont.truetype("arialbd.ttf", 34)
 
     bbox = draw.textbbox((0,0), text, font=font)
     text_width = bbox[2] - bbox[0]
@@ -54,15 +54,15 @@ def draw_bounding_box(img, data):
     text_x = x1
     text_y = min(y2 + 2, img_height - text_height)  # garante que não saia da imagem
 
-    draw.text((text_x, text_y), text, fill=line, font=font)  # cor contrastante
+    draw.text((text_x, text_y), text, fill=line, font=font)
 
     return Image.alpha_composite(img, overlay)
 
 def color_handler(event):
     if event == "Detection":
         return {
-            "line_color": "red",
-            "fill_color": (255, 0, 0, 50)
+            "line_color": (13, 219, 91),
+            "fill_color": (13, 219, 91, 50)
         }
     else:
         return {
@@ -70,7 +70,7 @@ def color_handler(event):
             "fill_color": (0, 255, 255, 50)
         }
 
-@app.post("/draw_box")
+@app.post("/task/detection_image")
 async def draw_box(request: Request):
     data = await request.json()
     img_url = data.get("image")
@@ -87,3 +87,7 @@ async def draw_box(request: Request):
     buf.seek(0)
 
     return Response(content=buf.getvalue(), media_type="image/jpeg")
+
+@app.get("/")
+async def test_connection():
+    return JSONResponse(content={ "status": "success" })
