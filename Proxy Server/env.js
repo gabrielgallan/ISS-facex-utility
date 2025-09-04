@@ -7,7 +7,7 @@ const config = {
   },
   
   rest_url: process.env.REST_API_ADDRESS,
-  port: process.env.PORT || 8081
+  port: process.env.PORT
 }
 
 export default config

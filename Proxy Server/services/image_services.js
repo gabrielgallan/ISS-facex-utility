@@ -1,5 +1,6 @@
 import config from '../env.js'
 import axios from 'axios'
+import { HttpError } from '../middlewares/http_errors.js'
 
 export async function GetApiFrame(params) {
     try {
@@ -12,6 +13,12 @@ export async function GetApiFrame(params) {
 
         return response.data
     } catch (err) {
-        throw new Error(err.message)
+        if (err.response) {
+            throw new HttpError(err.response.status, JSON.parse(err.response.data).message)
+        } else if (err.request) {
+            throw new HttpError(500, "Sem resposta do servidor")
+        } else {
+            throw new HttpError(500, err.message)
+        }
     }
 }

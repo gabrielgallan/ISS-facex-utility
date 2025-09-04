@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: ./Proxy Server
+    container_name: proxy-server
+    ports:
+      - "3000:8081"
+    environment:
+      - PORT=8081
+      - AUTH_USERNAME=rest_user
+      - AUTH_PASSWORD=securos
+      - REST_API_ADDRESS=http://192.168.8.191:8888
+    command: npm start
+
+  api-python:
+    build: ./Python Server (Box API)
+    container_name: python-server
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend

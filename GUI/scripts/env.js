@@ -1,6 +1,6 @@
 const env = {
     proccess: {
-        PROXY: 'http://localhost:3000',
-        PYTHON_SERVER: 'http://localhost:3001',
+        PROXY: 'http://127.0.0.1:3000',
+        PYTHON_SERVER: 'http://127.0.0.1:3001',
     }
 }

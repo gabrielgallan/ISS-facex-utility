@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import Response, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware  # <--- IMPORTANTE
 from PIL import Image, ImageDraw, ImageFont
@@ -70,24 +70,26 @@ def color_handler(event):
             "fill_color": (0, 255, 255, 50)
         }
 
+async def get_image(url):
+    try:
+      proxy_image = requests.get(url, timeout=8)
+      proxy_image.raise_for_status()
+      return proxy_image.content
+    except requests.exceptions.Timeout:
+        # Aqui lançamos um HTTPException com status code 408
+        raise HTTPException(status_code=408, detail="Timeout ao baixar a imagem.")
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=502, detail=f"Erro ao baixar a imagem: {e}")
+
 @app.post("/task/detection_image")
 async def draw_box(request: Request):
     data = await request.json()
-    img_url = data.get("image")
+    frame = await get_image(data.get("image"))
 
-    proxy = requests.get(img_url, timeout=8)
-    if proxy.status_code != 200:
-        return {"status":"failed", "message":"Não foi possível baixar a imagem."}
-
-    img = draw_bounding_box(Image.open(BytesIO(proxy.content)), data)
-
-    # Converte para JPEG
+    img = draw_bounding_box(Image.open(BytesIO(frame)), data)
+        # Converte para JPEG
     buf = BytesIO()
     img.convert("RGB").save(buf, format="JPEG")
     buf.seek(0)
 
     return Response(content=buf.getvalue(), media_type="image/jpeg")
-
-@app.get("/")
-async def test_connection():
-    return JSONResponse(content={ "status": "success" })

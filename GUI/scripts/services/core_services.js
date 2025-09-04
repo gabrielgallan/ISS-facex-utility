@@ -22,7 +22,7 @@ ISScustomAPI.onEvent(async function (type, id, action, params) {
                 const detection = ExtractDetection(JSON.parse(params.comment))
                 const image = await GetImageFromPython(detection)
                 await RenderDetectionImage(image)
-            setTimeout(() => { SubscribeTrackUpdates() }, 2000)
+            //setTimeout(() => { SubscribeTrackUpdates() }, 2000)
             break
         case 'FACE_X_SERVER:TRACK_UPDATE':
             const now = Date.now()
