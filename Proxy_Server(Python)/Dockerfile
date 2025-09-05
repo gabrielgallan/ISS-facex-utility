@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # 6. Expor porta que o Uvicorn vai usar
-EXPOSE 3001
+EXPOSE 8082
 
 # 7. Comando para rodar o FastAPI com Uvicorn
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "3001"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8082"]

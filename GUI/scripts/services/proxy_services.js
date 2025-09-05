@@ -1,6 +1,6 @@
 async function GetImageFromPython(detection) {
     try {
-        const url = env.proccess.PYTHON_SERVER + '/task/detection_image'
+        const url = env.proccess.PROXY_PYTHON + '/proxy/task/detection_image'
         const response = await axios.post(url, detection, { responseType: 'blob' })
 
         return URL.createObjectURL(response.data)

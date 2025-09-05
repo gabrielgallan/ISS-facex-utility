@@ -1,18 +1,7 @@
-async function RenderDetectionImage(image) {
-    const canvas = document.querySelector('canvas#canvas')
-    canvas.style.display = ''
-    const ctx = canvas.getContext('2d')
+const icon = document.querySelector('img.facial_icon')
+const detection_image = document.querySelector('img.detection_image')
 
-    // cria objeto imagem
-    const img = new Image()
-    img.src = image
-
-    img.onload = () => {
-        // ajusta tamanho do canvas para o da imagem
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        // desenha a imagem no canvas
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    }
+function InsertImage(image_url) {
+    icon.style.display = "none"
+    detection_image.src = image_url
 }

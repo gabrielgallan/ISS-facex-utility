@@ -21,8 +21,9 @@ ISScustomAPI.onEvent(async function (type, id, action, params) {
             UnSubscribeTrackUpdates()
                 const detection = ExtractDetection(JSON.parse(params.comment))
                 const image = await GetImageFromPython(detection)
-                await RenderDetectionImage(image)
-            //setTimeout(() => { SubscribeTrackUpdates() }, 2000)
+                InsertImage(image)
+                
+            setTimeout(() => { SubscribeTrackUpdates() }, 1500)
             break
         case 'FACE_X_SERVER:TRACK_UPDATE':
             const now = Date.now()
@@ -31,7 +32,7 @@ ISScustomAPI.onEvent(async function (type, id, action, params) {
                 config.LAST_TRACK_UPDATE = now
                     const track = ExtractTrackUpdate(JSON.parse(params.comment))
                     const image = await GetImageFromPython(track) 
-                    await RenderDetectionImage(image)
+                    InsertImage(image)
             }
             break
         default:
@@ -44,7 +45,7 @@ function ExtractDetection(log) {
     return {
         event: 'Detection',
         id,
-        image: `${env.proccess.PROXY}/proxy_api/v1/cameras/${cam_id}/image/${DetectionDate(timestamp)}`,
+        image: `/api/v1/cameras/${cam_id}/image/${DetectionDate(timestamp)}`,
         visualization
     }
 }
@@ -54,7 +55,7 @@ function ExtractTrackUpdate(log) {
     return {
         event: 'Track',
         id: track_id,
-        image: `${env.proccess.PROXY}/proxy_api/v1/cameras/${feed}/image/${UpdateDate(timestamp)}`,
+        image: `/api/v1/cameras/${feed}/image/${UpdateDate(timestamp)}`,
         visualization: bounding_box,
     }
 }

@@ -1,16 +1,17 @@
 import fastify from "fastify"
-import { RequestParamsController } from './middlewares/req_params.js'
-import { GetApiFrame } from './services/image_services.js'
+import { GetApiFrame, DrawBoundingBox } from './services/image_services.js'
 import { HttpError } from "./middlewares/http_errors.js"
 
 const app = fastify({ logger: true })
 
-app.get('/proxy_api/v1/cameras/:cam_id/image/:time', async (request, reply) => {
+app.post('/proxy/task/detection_image', async (request, reply) => {
     try {
-        const params = RequestParamsController(request.params)
-        const image = await GetApiFrame(params)
+        const body = request.body
+        const frame = await GetApiFrame(body.image)
+        const image = await DrawBoundingBox(frame, body)
 
         reply.header('Content-Type', 'image/jpeg')
+             .status(200)
              .send(Buffer.from(image))
     } catch (err) {
         if (err instanceof HttpError) {

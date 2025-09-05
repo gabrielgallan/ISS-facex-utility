@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
 }
 
@@ -14,9 +14,19 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.286);
 }
 
-canvas {
+div.image_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85%;
+}
+
+img.detection_image {
     max-width: 100%;
-    max-height: 80%;
-    border: 3px solid rgb(87, 96, 102);
-    object-fit: contain;
+    max-height: 100%;
+}
+
+img.facial_icon {
+    height: 50%;
+    opacity: 15%;
 }

@@ -1,20 +1,5 @@
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import Response, JSONResponse
-from fastapi.middleware.cors import CORSMiddleware  # <--- IMPORTANTE
 from PIL import Image, ImageDraw, ImageFont
-import requests
-from io import BytesIO
-
-app = FastAPI()
-
-# habilita CORS para qualquer origem
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # libera tudo (pode restringir para ["http://127.0.0.1:5500"])
-    allow_credentials=True,
-    allow_methods=["*"],  # libera todos os métodos (GET, POST, etc)
-    allow_headers=["*"],  # libera todos os headers
-)
+import os
 
 def draw_bounding_box(img, data):
     # Garante que imagem está em RGBA
@@ -45,7 +30,8 @@ def draw_bounding_box(img, data):
 
     # Texto abaixo do retângulo
     text = str(data.get("id"))
-    font = ImageFont.truetype("arialbd.ttf", 34)
+    font_path = os.path.join("fonts", "OpenSans-VariableFont_wdth,wght.ttf")
+    font = ImageFont.truetype(font_path, 30)
 
     bbox = draw.textbbox((0,0), text, font=font)
     text_width = bbox[2] - bbox[0]
@@ -69,27 +55,3 @@ def color_handler(event):
             "line_color": "cyan",
             "fill_color": (0, 255, 255, 50)
         }
-
-async def get_image(url):
-    try:
-      proxy_image = requests.get(url, timeout=8)
-      proxy_image.raise_for_status()
-      return proxy_image.content
-    except requests.exceptions.Timeout:
-        # Aqui lançamos um HTTPException com status code 408
-        raise HTTPException(status_code=408, detail="Timeout ao baixar a imagem.")
-    except requests.exceptions.RequestException as e:
-        raise HTTPException(status_code=502, detail=f"Erro ao baixar a imagem: {e}")
-
-@app.post("/task/detection_image")
-async def draw_box(request: Request):
-    data = await request.json()
-    frame = await get_image(data.get("image"))
-
-    img = draw_bounding_box(Image.open(BytesIO(frame)), data)
-        # Converte para JPEG
-    buf = BytesIO()
-    img.convert("RGB").save(buf, format="JPEG")
-    buf.seek(0)
-
-    return Response(content=buf.getvalue(), media_type="image/jpeg")
