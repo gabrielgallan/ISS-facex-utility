@@ -18,12 +18,9 @@ function UnSubscribeTrackUpdates() {
 ISScustomAPI.onEvent(async function (type, id, action, params) {
     switch (`${type}:${action}`) {
         case 'FACE_X_SERVER:DETECTION':
-            UnSubscribeTrackUpdates()
-                const detection = ExtractDetection(JSON.parse(params.comment))
-                const image = await GetImageFromPython(detection)
-                InsertImage(image)
-                
-            setTimeout(() => { SubscribeTrackUpdates() }, 1500)
+            const detection = ExtractDetection(JSON.parse(params.comment))
+            const image = await GetImageFromPython(detection)
+            InsertImage(image)
             break
         case 'FACE_X_SERVER:TRACK_UPDATE':
             const now = Date.now()

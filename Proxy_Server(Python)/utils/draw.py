@@ -1,5 +1,18 @@
-from PIL import Image, ImageDraw, ImageFont
 import os
+from PIL import Image, ImageDraw, ImageFont
+from io import BytesIO
+from middlewares.get_frame import get_frame
+
+async def convert_track_to_frame(track):
+    frame = await get_frame(track.get("image"))
+
+    img = draw_bounding_box(Image.open(BytesIO(frame)), track)
+        # Converte para JPEG
+    buf = BytesIO()
+    img.convert("RGB").save(buf, format="JPEG")
+    buf.seek(0)
+
+    return buf.getvalue()
 
 def draw_bounding_box(img, data):
     # Garante que imagem está em RGBA
