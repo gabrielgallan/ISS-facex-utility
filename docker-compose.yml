@@ -1,16 +1,4 @@
 services:
-  proxy-node:
-    build: ./Proxy_Server(Node)
-    container_name: proxy-node
-    ports:
-      - "3000:8081"
-    environment:
-      - PORT=8081
-      - AUTH_USERNAME=${AUTH_USERNAME}
-      - AUTH_PASSWORD=${AUTH_PASSWORD}
-      - REST_API_ADDRESS=${REST_API_ADDRESS}
-    command: npm start
-
   proxy-python:
     build: ./Proxy_Server(Python)
     container_name: proxy-python

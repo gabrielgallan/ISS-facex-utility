@@ -6,19 +6,25 @@ html, body {
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: #1e2328;
-    
-    border: 1px solid rgba(255, 255, 255, 0.286);
+
+    border: 1px solid rgba(255, 255, 255, 0.214);
+}
+
+section {
+    height: 100%;
+    display: flex;
+    justify-content: lefts;
+    align-items: center;
 }
 
 div.image_box {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 85%;
+    height: 75%;
+
+    border: 2px solid rgba(255, 255, 255, 0.504);
 }
 
 img.detection_image {

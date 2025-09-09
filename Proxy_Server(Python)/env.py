@@ -3,5 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # carrega o .env
 
-auth = (os.getenv('AUTH_USERNAME'), os.getenv('AUTH_PASSWORD'))
-rest_api = os.getenv('REST_API_ADDRESS')
+AUTH = (os.getenv('AUTH_USERNAME'), os.getenv('AUTH_PASSWORD'))
+REST_API = os.getenv('REST_API_ADDRESS')
+VALID_USERNAME = os.getenv('AUTH_USERNAME')
+VALID_PASSWORD = os.getenv('AUTH_PASSWORD')

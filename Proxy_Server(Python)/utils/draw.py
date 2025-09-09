@@ -4,7 +4,7 @@ from io import BytesIO
 from middlewares.get_frame import get_frame
 
 async def convert_track_to_frame(track):
-    frame = await get_frame(track.get("image"))
+    frame = await get_frame(track.get("frame"))
 
     img = draw_bounding_box(Image.open(BytesIO(frame)), track)
         # Converte para JPEG
@@ -60,8 +60,8 @@ def draw_bounding_box(img, data):
 def color_handler(event):
     if event == "Detection":
         return {
-            "line_color": (13, 219, 91),
-            "fill_color": (13, 219, 91, 50)
+            "line_color": "cyan",
+            "fill_color": (0, 255, 255, 50)
         }
     else:
         return {
