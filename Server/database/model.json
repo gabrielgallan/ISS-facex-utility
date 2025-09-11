@@ -1,0 +1,10 @@
+{
+    "event": "DETECTION",
+    "id": 31327,
+    "track_id": 821,
+    "cam_id": "6",
+    "image": "/api/v1/detections/31327/image",
+    "face": "/api/v1/detections/31327/face",
+    "proxy": "{\"frame\":\"/api/v1/cameras/6/image/2025-09-11T13:26:23.962\",\"visualization\":\"rect:51.45834,37.96296,6.14583,15.55556\"}",
+    "event_timestamp": "2025-09-11T13:26:23.962"
+}

@@ -1,12 +1,16 @@
 import os
+import json
 from PIL import Image, ImageDraw, ImageFont
 from io import BytesIO
 from middlewares.get_frame import get_frame
 
 async def convert_track_to_frame(track):
     frame = await get_frame(track.get("frame"))
+    visualization = track.get("visualization")
+    event = track.get("event")
+    id = track.get("id")
 
-    img = draw_bounding_box(Image.open(BytesIO(frame)), track)
+    img = draw_bounding_box(Image.open(BytesIO(frame)), visualization, event, id)
         # Converte para JPEG
     buf = BytesIO()
     img.convert("RGB").save(buf, format="JPEG")
@@ -14,18 +18,21 @@ async def convert_track_to_frame(track):
 
     return buf.getvalue()
 
-def draw_bounding_box(img, data):
+def draw_bounding_box(img, visualization, event, id):
     # Garante que imagem está em RGBA
     img = img.convert("RGBA")
     overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
 
     # Extrai coordenadas
-    rect_str = data.get('visualization').replace("rect:", "")
+    rect_str = visualization.replace("rect:", "")
     x_pct, y_pct, w_pct, h_pct = map(float, rect_str.split(","))
 
     # Extrai Cores
-    colors = color_handler(data.get('event'))
+    colors = {
+            "line_color": "cyan",
+            "fill_color": (0, 255, 255, 50)
+        }
     line = colors["line_color"]
     fill = colors["fill_color"]
 
@@ -42,7 +49,7 @@ def draw_bounding_box(img, data):
     draw.rectangle([x1, y1, x2, y2], outline=line, width=3, fill=fill)
 
     # Texto abaixo do retângulo
-    text = str(data.get("id"))
+    text = str(f"{event} - {id}")
     font_path = os.path.join("fonts", "OpenSans-VariableFont_wdth,wght.ttf")
     font = ImageFont.truetype(font_path, 30)
 
@@ -56,15 +63,3 @@ def draw_bounding_box(img, data):
     draw.text((text_x, text_y), text, fill=line, font=font)
 
     return Image.alpha_composite(img, overlay)
-
-def color_handler(event):
-    if event == "Detection":
-        return {
-            "line_color": "cyan",
-            "fill_color": (0, 255, 255, 50)
-        }
-    else:
-        return {
-            "line_color": "cyan",
-            "fill_color": (0, 255, 255, 50)
-        }

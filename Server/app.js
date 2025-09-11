@@ -2,6 +2,8 @@ import  fastify  from 'fastify'
 import DetectionServices from './services/detectionServices.js'
 import ImageServices from './services/imageServices.js'
 import { DetectionSchema, id_schema } from './models/Detections.js'
+import { ParseDetectionEventToLog } from './middlewares/detectionEventHandler.js'
+import { TerminalLogHandler } from './utils/TerminalResponses.js'
 
 const app = fastify()
 
@@ -54,13 +56,19 @@ app.get('/api/v1/detections/:id/face', async (request, reply) => {
 
 app.post('/api/v1/detections', async (request, reply) => {
     try {
-        const body = DetectionSchema.parse(request.body)
-        const detection = await DetectionServices.insertDetection(body)
+        const event = ParseDetectionEventToLog(request.body[0])
+        const log = DetectionSchema.parse(event)
+        const detection = await DetectionServices.insertDetection(log)
 
         reply.status(201).send({ status: 'success', detection })
     } catch (err) {
         reply.status(400).send({ status: 'failed', message: err.message })
     }
+})
+
+app.addHook("onResponse", (request, reply, done) => {
+    console.log(TerminalLogHandler(request, reply))
+    done()
 })
 
 export default app

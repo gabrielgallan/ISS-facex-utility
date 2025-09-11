@@ -4,8 +4,10 @@ export const DetectionSchema = z.object({
     event: z.string(),
     id: z.number(),
     track_id: z.number(),
-    frame: z.string(),
-    visualization: z.string(),
+    cam_id: z.string(),
+    image: z.string(),
+    face: z.string(),
+    proxy: z.string(),
     event_timestamp: z.string()
 })
 

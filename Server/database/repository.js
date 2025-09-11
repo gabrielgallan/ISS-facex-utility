@@ -1,0 +1,81 @@
+import chalk from "chalk"
+import sqlite3 from "sqlite3"
+const config = sqlite3.verbose()
+
+export class DetectionRepositoryClass {
+    constructor() {
+        this.db = new config.Database("./database/database.db")
+    }
+
+    connect() {
+        this.db.run(`CREATE TABLE IF NOT EXISTS detections (
+            id INTEGER PRIMARY KEY,
+            event TEXT NOT NULL,
+            track_id INTEGER,
+            cam_id TEXT,
+            image TEXT,
+            face TEXT,
+            proxy TEXT,
+            event_timestamp TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )`, (err) => {
+            if (err) return console.error(`DATABASE_CONNECT_PROCESS: ${chalk.red('failed')} | ERROR: `, chalk.red(err.message))
+
+            console.log("DATABASE_CONNECT_PROCESS: ", chalk.green('success'))
+        })
+
+        return this
+    }
+
+    insert(detectionLog) {
+        return new Promise((resolve, reject) => {
+            this.db.run(
+                `INSERT OR REPLACE INTO detections (id, event, track_id, cam_id, image, face, proxy, event_timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    detectionLog.id,
+                    detectionLog.event,
+                    detectionLog.track_id,
+                    detectionLog.cam_id,
+                    detectionLog.image,
+                    detectionLog.face,
+                    detectionLog.proxy,
+                    detectionLog.event_timestamp
+                ],
+                function (err) {
+                    if (err) return reject(err)
+                    resolve(this.lastID)
+                }
+            )
+        })
+    }
+
+    selectAll() {
+        return new Promise((resolve, reject) => {
+            this.db.all(`SELECT * FROM detections ORDER BY created_at DESC`, [], (err, rows) => {
+                if (err) return reject(err)
+                resolve(rows)
+            })
+        })
+    }
+
+    selectById(detection_id) {
+        return new Promise((resolve, reject) => {
+            this.db.get(`SELECT * FROM detections WHERE id = ?`, [detection_id], (err, row) => {
+                if (err) return reject(err)
+                resolve(row || null) // retorna apenas o registro ou null se não existir
+            })
+        })
+    }
+
+    dropTable() {
+        this.db.run(`DROP TABLE IF EXISTS detections`, (err) => {
+            if (err) return console.error("Erro ao dropar tabela 'detections':", err.message)
+
+            console.log("Tabela 'detections' removida.")
+        })
+    }
+}
+
+const DetectionRepository = new DetectionRepositoryClass().connect()
+export default DetectionRepository

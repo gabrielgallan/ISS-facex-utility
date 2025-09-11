@@ -1,23 +1,21 @@
 import config from "../env.config.js"
-import database from "../database/db.services.js"
-import { GetProxyImage } from "../middlewares/get_detection_image.js"
+import { GetProxyImage } from "../middlewares/GetDetectionImage.js"
+import DetectionRepository from "../database/repository.js"
 import axios from "axios"
 
 async function GetDetectionImage(detection_id) {
     try {
-        const detection = await database.select_detection_by_id(detection_id)
-        if (detection) {
-            const image = await GetProxyImage(detection)
-            return image
-        } else {
+        const detection = await DetectionRepository.selectById(detection_id)
+        if (!detection)
             throw new Error('Não há detecção com o ID informado')
-        }
+
+
+        const image = await GetProxyImage(JSON.parse(detection.proxy))
+        return image
     } catch (err) {
-        if (err.message) {
-            throw new Error(err.message)
-        } else {
-            throw new Error('Erro ao selecionar do banco')
-        }
+        if (err instanceof Error) throw new Error('Erro ao selecionar imagem da detecção: ' + err.message)
+        
+        throw new Error('Erro ao selecionar imagem da detecção')
     }
 }
 
@@ -29,11 +27,11 @@ async function GetDetectionFace(detection_id) {
         return response.data
     } catch (err) {
         if (err.response) {
-            throw new Error('Resposta do servidor: ' + err.response.data.message)
+            throw new Error('Erro ao selecionar face: Resposta do servidor: ' + err.response.data.message)
         } else if (err.request) {
-            throw new Error('Nenhuma resposta recebida do servidor')
+            throw new Error('Erro ao selecionar face: Nenhuma resposta recebida do servidor')
         } else {
-            throw new Error('Erro de configuração: ' + err.message)
+            throw new Error('Erro ao selecionar face: ' + err.message)
         }
     }
 }

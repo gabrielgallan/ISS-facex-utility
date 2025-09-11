@@ -1,45 +1,38 @@
-import database from "../database/db.services.js"
+import DetectionRepository from "../database/repository.js"
 
 async function listDetections() {
     try {
-        const detections = await database.select_detections()
+        const detections = await DetectionRepository.selectAll()
         return detections
     } catch (err) {
-        if (err.message) {
-            throw new Error(err.message)
-        } else {
-            throw new Error('Erro ao selecionar do banco')
-        }
+        if (err instanceof Error) throw new Error('Erro ao selecionar detecções do banco: ' + err.message)
+        
+        throw new Error('Erro ao selecionar detecções do banco')
     }
 }
 
 async function selectDetectionById(id) {
     try {
-        const detecction = await database.select_detection_by_id(id)
-        if (detecction) {
-            return detecction
-        } else {
+        const detecction = await DetectionRepository.selectById(id)
+        if (!detecction)
             throw new Error('Não há detecção com o ID informado')
-        }
+
+        return detecction
     } catch (err) {
-        if (err.message) {
-            throw new Error(err.message)
-        } else {
-            throw new Error('Erro ao selecionar detecção do banco')
-        }
+        if (err instanceof Error) throw new Error('Erro ao selecionar detecção do banco: ' + err.message)
+        
+        throw new Error('Erro ao selecionar detecção do banco')
     }
 }
 
 async function insertDetection(detectionLog) {
     try {
-        const service = await database.insert_detection(detectionLog)
+        const service = await DetectionRepository.insert(detectionLog)
         return service
     } catch (err) {
-        if (err.message) {
-            throw new Error(err.message)
-        } else {
-            throw new Error('Erro ao inserir no banco')
-        }
+        if (err instanceof Error) throw new Error('Erro ao inserir detecção no banco: ' + err.message)
+        
+        throw new Error('Erro ao inserir detecção no banco')
     }
 }
 
