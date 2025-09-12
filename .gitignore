@@ -3,3 +3,5 @@ node_modules/
 __pycache__/
 *.pyo
 *.py[cod]
+Server/database/database.db
+README.md

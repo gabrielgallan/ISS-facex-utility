@@ -1,10 +1,10 @@
 import axios from 'axios'
-import config from '../env.config.js'
+import { env } from '../env/config'
 
 export async function GetProxyImage(detection_log) {
     try {
-        const url = config.IMAGE_PROXY_SERVER
-        const auth = config.AUTH
+        const url = env.PROXY_SERVER
+        const auth = env.AUTH
         const response = await axios.post(url, detection_log, { 
             auth,
             responseType: "arraybuffer" 

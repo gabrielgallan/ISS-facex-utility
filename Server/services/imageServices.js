@@ -1,4 +1,4 @@
-import config from "../env.config.js"
+import { env } from "../env/config.js"
 import { GetProxyImage } from "../middlewares/GetDetectionImage.js"
 import DetectionRepository from "../database/repository.js"
 import axios from "axios"
@@ -21,7 +21,7 @@ async function GetDetectionImage(detection_id) {
 
 async function GetDetectionFace(detection_id) {
     try {
-        const url = config.FACE_X_SERVER + `/v1/archive/detection/${detection_id}/image`
+        const url = env.FACE_X_SERVER + `/v1/archive/detection/${detection_id}/image`
         const response = await axios.get(url, { responseType: "arraybuffer" })
 
         return response.data

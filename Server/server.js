@@ -1,5 +1,5 @@
 import app from "./app.js"
-import config from "./env.config.js"
+import { env } from "./env/config.js"
 import cors from '@fastify/cors'
 import { SubscribeDetections } from "./services/receiveDetectionService.js"
 import chalk from "chalk"
@@ -12,7 +12,7 @@ await app.register(cors, {
 })
 
 app.listen({
-  port: config.PORT,
+  port: env.PORT,
   host: '0.0.0.0'
 }, (err, address) => {
     if (err)

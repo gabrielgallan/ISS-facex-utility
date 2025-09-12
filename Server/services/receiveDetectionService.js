@@ -1,4 +1,4 @@
-import config from "../env.config.js"
+import { env } from "../env/config"
 import axios from "axios"
 import chalk from "chalk"
 
@@ -22,8 +22,8 @@ export async function SubscribeDetections(address) {
 
 async function SendSubscription(subscription) {
     try {
-        const url = config.REST_API_SERVER + '/api/v1/events/subscriptions'
-        const auth = config.AUTH
+        const url = env.REST_API_SERVER + '/api/v1/events/subscriptions'
+        const auth = env.AUTH
         const response = await axios.post(url, subscription, { auth })
 
         return response.data
