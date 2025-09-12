@@ -1,7 +1,7 @@
 services:
   proxy-python:
     build: ./Proxy_Server(Python)
-    container_name: proxy-python
+    container_name: proxy-server
     ports:
       - "3001:8082"
     environment:

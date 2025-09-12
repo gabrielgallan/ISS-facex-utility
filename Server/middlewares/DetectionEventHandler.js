@@ -1,3 +1,4 @@
+import { env } from "../env/config.js"
 
 
 export function ParseDetectionEventToLog(event) {
@@ -13,7 +14,7 @@ export function ParseDetectionEventToLog(event) {
         proxy: JSON.stringify({
             event: event.action,
             id,
-            frame: `/api/v1/cameras/${cam_id}/image/${DetectionDateFormatter(timestamp)}`,
+            frame: `${env.REST_API_SERVER}/api/v1/cameras/${cam_id}/image/${DetectionDateFormatter(timestamp)}`,
             visualization
         }),
         event_timestamp: DetectionDateFormatter(timestamp)

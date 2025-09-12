@@ -4,7 +4,7 @@ import env
 
 async def get_frame(route):
     try:
-      response = requests.get(env.REST_API + route, timeout=4, auth=env.AUTH)
+      response = requests.get(route, timeout=4, auth=env.AUTH)
       response.raise_for_status()
 
       return response.content

@@ -1,10 +1,10 @@
 import chalk from "chalk"
 import sqlite3 from "sqlite3"
-import { env } from "../env/config"
-const config = sqlite3.verbose()
+import { env } from "../env/config.js"
 
 export class DetectionRepositoryClass {
     constructor() {
+        const config = sqlite3.verbose()
         this.db = new config.Database(env.DATABASE_URL)
     }
 

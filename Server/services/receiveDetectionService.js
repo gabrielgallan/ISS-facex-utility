@@ -1,10 +1,10 @@
-import { env } from "../env/config"
+import { env } from "../env/config.js"
 import axios from "axios"
 import chalk from "chalk"
 
 export async function SubscribeDetections(address) {
     try {
-        const IDS = (config.FACE_X_SERVER_ID).split(',')
+        const IDS = (env.FACE_X_SERVER_ID).split(',')
         const URL = address + '/api/v1/detections'
         IDS.forEach(async (ID) => {
             try {
@@ -23,7 +23,10 @@ export async function SubscribeDetections(address) {
 async function SendSubscription(subscription) {
     try {
         const url = env.REST_API_SERVER + '/api/v1/events/subscriptions'
-        const auth = env.AUTH
+        const auth = {
+            username: env.REST_API_AUTH_USERNAME,
+            password: env.REST_API_AUTH_PASSWORD
+        }
         const response = await axios.post(url, subscription, { auth })
 
         return response.data
