@@ -1,53 +1,40 @@
 
 window.addEventListener('load', async () => {
-    SubscribeDetections()
-    ConfirmPopup()
+	RenderDetectionLogs(detections)
 })
 
 const detections = [
 		{
-			"id": 31114,
-			"event": "Detection",
-			"track_id": 3238,
-			"frame": "/api/v1/cameras/6/image/2025-09-09T17:44:19.181",
-			"visualization": "rect:9.42708,20.09259,5.98958,14.44444",
-			"event_timestamp": "2025-09-09T17:44:19.181",
-			"created_at": "2025-09-09 20:44:19"
+			"id": 32176,
+			"event": "DETECTION",
+			"track_id": 1311,
+			"cam_id": "6",
+			"image": "/api/v1/detections/32176/image",
+			"face": "/api/v1/detections/32176/face",
+			"proxy": "{\"event\":\"DETECTION\",\"id\":32176,\"frame\":\"http://192.168.8.191:8888/api/v1/cameras/6/image/2025-09-12T14:13:13.126\",\"visualization\":\"rect:92.08334,35.64815,4.68750,11.66667\"}",
+			"event_timestamp": "2025-09-12T14:13:13.126",
+			"created_at": "2025-09-12 17:13:14"
 		},
 		{
-			"id": 31113,
-			"event": "Detection",
-			"track_id": 3237,
-			"frame": "/api/v1/cameras/6/image/2025-09-09T17:44:07.969",
-			"visualization": "rect:26.35417,17.96296,9.11458,22.87037",
-			"event_timestamp": "2025-09-09T17:44:07.969",
-			"created_at": "2025-09-09 20:44:08"
+			"id": 32175,
+			"event": "DETECTION",
+			"track_id": 1308,
+			"cam_id": "6",
+			"image": "/api/v1/detections/32175/image",
+			"face": "/api/v1/detections/32175/face",
+			"proxy": "{\"event\":\"DETECTION\",\"id\":32175,\"frame\":\"http://192.168.8.191:8888/api/v1/cameras/6/image/2025-09-12T14:13:07.031\",\"visualization\":\"rect:91.56250,35.64815,4.89583,11.48148\"}",
+			"event_timestamp": "2025-09-12T14:13:07.031",
+			"created_at": "2025-09-12 17:13:07"
 		},
 		{
-			"id": 31112,
-			"event": "Detection",
-			"track_id": 3230,
-			"frame": "/api/v1/cameras/6/image/2025-09-09T17:42:51.544",
-			"visualization": "rect:55.62500,45.83334,6.66667,16.85185",
-			"event_timestamp": "2025-09-09T17:42:51.544",
-			"created_at": "2025-09-09 20:42:51"
-		},
-		{
-			"id": 31110,
-			"event": "Detection",
-			"track_id": 3223,
-			"frame": "/api/v1/cameras/6/image/2025-09-09T17:42:43.407",
-			"visualization": "rect:55.72917,23.61111,10.00000,23.42593",
-			"event_timestamp": "2025-09-09T17:42:43.407",
-			"created_at": "2025-09-09 20:42:43"
-		},
-		{
-			"id": 31111,
-			"event": "Detection",
-			"track_id": 3225,
-			"frame": "/api/v1/cameras/6/image/2025-09-09T17:42:28.074",
-			"visualization": "rect:44.32292,32.87037,8.12500,18.98148",
-			"event_timestamp": "2025-09-09T17:42:28.074",
-			"created_at": "2025-09-09 20:42:28"
+			"id": 32174,
+			"event": "DETECTION",
+			"track_id": 1305,
+			"cam_id": "6",
+			"image": "/api/v1/detections/32174/image",
+			"face": "/api/v1/detections/32174/face",
+			"proxy": "{\"event\":\"DETECTION\",\"id\":32174,\"frame\":\"http://192.168.8.191:8888/api/v1/cameras/6/image/2025-09-12T14:12:47.600\",\"visualization\":\"rect:8.59375,20.00000,5.88542,14.72222\"}",
+			"event_timestamp": "2025-09-12T14:12:47.600",
+			"created_at": "2025-09-12 17:12:47"
 		}
 ]

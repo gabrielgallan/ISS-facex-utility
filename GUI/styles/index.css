@@ -8,31 +8,12 @@ html, body {
 body {
     background-color: #1e2328;
 
-    border: 1px solid rgba(255, 255, 255, 0.214);
+    border: 1px solid rgba(255, 255, 255, 0.345);
 }
 
 section {
     height: 100%;
     display: flex;
-    justify-content: lefts;
-    align-items: center;
-}
-
-div.image_box {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    height: 75%;
-
-    border: 2px solid rgba(255, 255, 255, 0.504);
-}
-
-img.detection_image {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-img.facial_icon {
-    height: 50%;
-    opacity: 15%;
+    align-items: center;
 }

@@ -1,7 +1,14 @@
-const icon = document.querySelector('img.facial_icon')
-const detection_image = document.querySelector('img.detection_image')
+function RenderDetectionLogs(detections) {
+    const DetectionsList = document.querySelector('ul.detections_logs_list')
 
-function InsertImage(image_url) {
-    icon.style.display = "none"
-    detection_image.src = image_url
+    DetectionsList.innerHTML = ''
+    detections.forEach((detection) => {
+        const card = document.createElement('li')
+        card.className = 'detection_log_card'
+        card.innerHTML = `
+            <p>${detection.id}</p>
+        `
+
+        DetectionsList.appendChild(card)
+    })
 }

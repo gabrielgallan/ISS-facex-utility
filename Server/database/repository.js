@@ -69,6 +69,20 @@ export class DetectionRepositoryClass {
         })
     }
 
+    selectByTimeStamp(start_time, end_time) {
+        return new Promise((resolve, reject) => {
+            this.db.all(`
+                SELECT * FROM detections 
+                WHERE event_timestamp
+                BETWEEN ? AND ?
+                ORDER BY created_at DESC`,
+            [start_time, end_time], (err, rows) => {
+                if (err) return reject(err)
+                resolve(rows)
+            })
+        })
+    }
+
     dropTable() {
         this.db.run(`DROP TABLE IF EXISTS detections`, (err) => {
             if (err) return console.error("Erro ao dropar tabela 'detections':", err.message)

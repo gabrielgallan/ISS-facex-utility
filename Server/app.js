@@ -1,7 +1,7 @@
 import  fastify  from 'fastify'
 import DetectionServices from './services/detectionServices.js'
 import ImageServices from './services/imageServices.js'
-import { DetectionSchema, id_schema } from './models/Detections.js'
+import { DetectionSchema, IdSchema, TimeStampQuerySchema } from './schemas/Detections.js'
 import { ParseDetectionEventToLog } from './middlewares/detectionEventHandler.js'
 import { TerminalLogHandler } from './utils/TerminalResponses.js'
 
@@ -9,7 +9,12 @@ const app = fastify()
 
 app.get('/api/v1/detections', async (request, reply) => {
     try {
-        const detections = await DetectionServices.listDetections()
+        let detections
+        const queryParams = TimeStampQuerySchema(request.query)
+        if (queryParams)
+            detections = await DetectionServices.selectDetectionByTimestamp(queryParams.start_time, queryParams.end_time)
+        else
+            detections = await DetectionServices.listDetections()
 
         reply.status(200).send({ status: 'success', detections })
     } catch (err) {
@@ -19,7 +24,7 @@ app.get('/api/v1/detections', async (request, reply) => {
 
 app.get('/api/v1/detections/:id', async (request, reply) => {
     try {
-        const id = id_schema(request.params)
+        const id = IdSchema(request.params)
         const detecction = await DetectionServices.selectDetectionById(id)
 
         reply.status(200).send({ status: 'success', detecction })
@@ -30,7 +35,7 @@ app.get('/api/v1/detections/:id', async (request, reply) => {
 
 app.get('/api/v1/detections/:id/image', async (request, reply) => {
     try {
-        const id = id_schema(request.params)
+        const id = IdSchema(request.params)
         const image = await ImageServices.GetDetectionImage(id)
 
         reply.status(200)
@@ -43,7 +48,7 @@ app.get('/api/v1/detections/:id/image', async (request, reply) => {
 
 app.get('/api/v1/detections/:id/face', async (request, reply) => {
     try {
-        const id = id_schema(request.params)
+        const id = IdSchema(request.params)
         const face = await ImageServices.GetDetectionFace(id)
         
         reply.status(200)

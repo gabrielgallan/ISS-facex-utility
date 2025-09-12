@@ -1,0 +1,38 @@
+div.detections_logs_container {
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+    font-family: "Share Tech", sans-serif;
+    color: white;
+}
+
+div.detections_header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.388);
+}
+
+.detections_header img {
+    margin: 1%;
+    height: 35px;
+    flex: 0;
+}
+
+.detections_header h1 {
+    font-size: 18pt;
+    font-weight: 400;
+    color: rgb(249, 251, 255);
+}
+
+ul.detections_logs_list {
+    max-height: 80%;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+li.detection_log_card {
+    border: 1px solid white;
+}
