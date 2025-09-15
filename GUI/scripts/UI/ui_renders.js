@@ -25,3 +25,7 @@ function EventDateFormatter(timestamp) {
 
     return { date: `${d}/${mo}`, time: `${h}:${min}` }
 }
+
+function RenderDetectionPage(detection) {
+    
+}

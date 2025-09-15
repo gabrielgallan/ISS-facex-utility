@@ -7,7 +7,7 @@ async function GetApiDetections(start_time, end_time, max_count) {
 
         return response.data.detections
     } catch (err) {
-        throw new Error(err.message)
+        throw new Error('CODE:7648: ', err.message)
     }
 }
 

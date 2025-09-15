@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/popup.css">
     <link rel="stylesheet" href="./styles/detection_logs.css">
+    <link rel="stylesheet" href="./styles/filter_bar.css">
 
     <!-- Elementos Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,6 +66,20 @@
                     Filtrar
                 </button>
             </div>
+            <form action="" method="get" class="filter_container">
+                <div class="form_init">
+                   Inicio<br>
+                   Data: <input type="datetime" name="" id=""><br>
+                   Hora: <input type="datetime" name="" id="">
+                </div>
+                <div class="form_end">
+                   Fim<br>
+                   Data: <input type="datetime" name="" id=""><br>
+                   Hora: <input type="datetime" name="" id=""> 
+                </div>
+                
+                Máximo de detecções: <input type="number" name="" id="">
+            </form>
             <div class="detections_head" style="display: none;">
                 <div class="time">Hora</div>
                 <div class="event">Evento</div>
