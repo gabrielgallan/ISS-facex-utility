@@ -20,12 +20,9 @@
     <!-- Bibliotecas externas -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Scripts ISS -->
-    <script src="./scripts/iss.js"></script>
-
-    <!-- Recursos Globais -->
-    <script src="./scripts/env.js"></script>
-    <script src="./scripts/services/global_services.js"></script>
+    <!-- Scripts de Configuração -->
+    <script src="./config/env.js"></script>
+    <script src="./config/iss.js"></script>
 
 </head>
 
@@ -64,6 +61,16 @@
             <div class="detections_header">
                 <img src="./assets/iss-logo.png" alt="">
                 <h1>SecurOS® FaceX Detections</h1>
+                <button class="filter_button" onclick="">
+                    Filtrar
+                </button>
+            </div>
+            <div class="detections_head" style="display: none;">
+                <div class="time">Hora</div>
+                <div class="event">Evento</div>
+                <div class="id">ID</div>
+                <div class="cam">CAM</div>
+                <div class="date">Data</div>
             </div>
             <ul class="detections_logs_list">
 
@@ -71,10 +78,20 @@
         </div>
     </section>
 
-    <script src="./scripts/services/config.js"></script>
+    <footer>
+        <div class="viewer_control">
+            <p>Mostrar ultimas: </p>
+            <div class="per_page active" onclick="ChangePerPageValue(this)">10</div>
+            <div class="per_page" onclick="ChangePerPageValue(this)">20</div>
+            <div class="per_page" onclick="ChangePerPageValue(this)">30</div>
+        </div>
+    </footer>
+
+    <script src="./scripts/services/html_services.js"></script>
     <script src="./scripts/services/api_services.js"></script>
     <script src="./scripts/services/core_services.js"></script>
     <script src="./scripts/UI/ui_renders.js"></script>
+    <script src="./scripts/controllers.js"></script>
     <script src="./scripts/main.js"></script>
 
 </body>

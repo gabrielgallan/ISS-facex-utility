@@ -25,10 +25,11 @@ async function selectDetectionById(id) {
     }
 }
 
-async function selectDetectionByTimestamp(start_time, end_time) {
+async function selectDetectionByParams(start_time, end_time, max_count) {
     try {
-        const detecctions = await DetectionRepository.selectByTimeStamp(start_time, end_time)
-        return detecctions
+        const detections = await DetectionRepository.selectByParams(start_time, end_time, max_count)
+        
+        return detections
     } catch (err) {
         if (err instanceof Error) throw new Error('Erro ao selecionar detecções do banco: ' + err.message)
         
@@ -47,6 +48,6 @@ async function insertDetection(detectionLog) {
     }
 }
 
-const DetectionServices = { listDetections, insertDetection, selectDetectionById, selectDetectionByTimestamp }
+const DetectionServices = { listDetections, insertDetection, selectDetectionById, selectDetectionByParams }
 
 export default DetectionServices

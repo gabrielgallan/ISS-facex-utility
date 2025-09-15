@@ -1,7 +1,7 @@
 import  fastify  from 'fastify'
 import DetectionServices from './services/detectionServices.js'
 import ImageServices from './services/imageServices.js'
-import { DetectionSchema, IdSchema, TimeStampQuerySchema } from './schemas/Detections.js'
+import { DetectionSchema, IdSchema, ParamsQuerySchema } from './schemas/Detections.js'
 import { ParseDetectionEventToLog } from './middlewares/detectionEventHandler.js'
 import { TerminalLogHandler } from './utils/TerminalResponses.js'
 
@@ -10,9 +10,9 @@ const app = fastify()
 app.get('/api/v1/detections', async (request, reply) => {
     try {
         let detections
-        const queryParams = TimeStampQuerySchema(request.query)
+        const queryParams = ParamsQuerySchema(request.query)
         if (queryParams)
-            detections = await DetectionServices.selectDetectionByTimestamp(queryParams.start_time, queryParams.end_time)
+            detections = await DetectionServices.selectDetectionByParams(queryParams.start_time, queryParams.end_time, queryParams.max_count)
         else
             detections = await DetectionServices.listDetections()
 

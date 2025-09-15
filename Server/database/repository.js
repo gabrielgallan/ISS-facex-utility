@@ -69,14 +69,22 @@ export class DetectionRepositoryClass {
         })
     }
 
-    selectByTimeStamp(start_time, end_time) {
+    selectByParams(start_time, end_time, max_count) {
         return new Promise((resolve, reject) => {
-            this.db.all(`
+            let query = `
                 SELECT * FROM detections 
-                WHERE event_timestamp
-                BETWEEN ? AND ?
-                ORDER BY created_at DESC`,
-            [start_time, end_time], (err, rows) => {
+                WHERE event_timestamp BETWEEN ? AND ?
+                ORDER BY created_at DESC
+                `
+
+            const params = [start_time, end_time]
+
+            if (max_count >= 0) {
+                query += ` LIMIT ?`
+                params.push(max_count)
+            }
+
+            this.db.all(query, params, (err, rows) => {
                 if (err) return reject(err)
                 resolve(rows)
             })

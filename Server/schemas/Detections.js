@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { string, z } from 'zod'
 
 export const DetectionSchema = z.object({
     event: z.string(),
@@ -25,24 +25,26 @@ export function IdSchema(param) {
     }
 }
 
-export function TimeStampQuerySchema(query) {
+export function ParamsQuerySchema(query) {
     const querySchema = z.object({
-        start_time: z.string().regex(
-            /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$/
-        ),
-        end_time: z.string().regex(
-            /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}$/
-        )
-    })
+        start_time: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?$/).optional(),
+        end_time: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?$/).optional(),
+        max_count: z.coerce.number().nullable().optional()
+    }).refine(
+        (data) => (!data.start_time && !data.end_time) || (data.start_time && data.end_time),
+        { message: 'Params "start_time" e "end_time" devem ser declarados juntos' }
+    )
 
-    const { start_time, end_time } = query
-    if (start_time && end_time) {
-        const parse = querySchema.safeParse(query)
+    const parse = querySchema.safeParse(query)
 
-        if (parse.success) return parse.data
-        else throw new Error('Formato do timestamp errado')
-    } else if ((start_time && !end_time) || (!start_time && end_time)){
-        throw new Error('Params "start_time" e "end_time" devem ser declarados')
+    if (!parse.success) throw new Error('Formato da Query Param incorreto: "start_time" e "end_time" devem ser declarados, max_count opcional')
+
+    const { start_time, end_time, max_count } = parse.data
+
+    // Nenhum parâmetro informado
+    if (!start_time && !end_time && !max_count) {
+        return null
     }
-    return null
+
+    return parse.data
 }
