@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="./styles/popup.css">
     <link rel="stylesheet" href="./styles/detection_logs.css">
     <link rel="stylesheet" href="./styles/filter_bar.css">
+    <link rel="stylesheet" href="./styles/filter_bar--chekbox.css">
 
     <!-- Elementos Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Importação de Scripts ou Libs -->
     <!-- Bibliotecas externas -->
@@ -62,23 +64,93 @@
             <div class="detections_header">
                 <img src="./assets/iss-logo.png" alt="">
                 <h1>SecurOS® FaceX Detections</h1>
-                <button class="filter_button" onclick="">
-                    Filtrar
-                </button>
+                <div class="filter_buttons">
+                    <button class="filter_buttons" onclick="ReturnLiveDetectionsMode()" style="color: rgb(12, 120, 221); border-color: rgb(12, 120, 221);">
+                        Modo Live
+                    </button>
+                    <button class="filter_buttons og" onclick="ChangeFilterForm()">
+                        Filtrar
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#e3e3e3">
+                            <path
+                                d="M440-160q-17 0-28.5-11.5T400-200v-240L168-736q-15-20-4.5-42t36.5-22h560q26 0 36.5 22t-4.5 42L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-308 198-252H282l198 252Zm0 0Z" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <form action="" method="get" class="filter_container">
-                <div class="form_init">
-                   Inicio<br>
-                   Data: <input type="datetime" name="" id=""><br>
-                   Hora: <input type="datetime" name="" id="">
+            <form action="" class="filter_container" style="display: none;">
+                <div class="datetime_forms_container">
+                    <div class="form_box">
+                        <span style="width: 10%;">De</span>
+                        <div class="input_box">
+                            <input
+                                name="start_date"
+                                class="input date"
+                                type="date"
+                                autocomplete="off"
+                                required
+                            >
+                            -
+                            <input
+                                name="start_time"
+                                class="input time"
+                                type="time"
+                                autocomplete="off" 
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div class="form_box">
+                        <span style="width: 10%;">Até</span>
+                        <div class="input_box">
+                            <input
+                                name="end_date"
+                                class="input date"
+                                type="date"
+                                autocomplete="off"
+                                required
+                            >
+                            -
+                            <input
+                                name="end_time"
+                                class="input time"
+                                type="time"
+                                autocomplete="off" 
+                                required
+                            >
+                        </div>
+                    </div>
                 </div>
-                <div class="form_end">
-                   Fim<br>
-                   Data: <input type="datetime" name="" id=""><br>
-                   Hora: <input type="datetime" name="" id=""> 
+
+                <div class="max_form_container" style="display: flex; flex-direction: column; gap: 10px; flex: 2;">
+                    <div class="form_box max">
+                        <span style="width: 17%;">Contagem máxima</span>
+                        <div>
+                            <input
+                                name="max_count"
+                                type="text" 
+                                class="input max" 
+                                style="width: 20%;"
+                                pattern="^([A-Za-z]+|\d{1,4})$"
+                                placeholder="0"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div class="form_box">
+                        <span style="width: 17%;">Todos os registros</span>
+                        <div>
+                            <label class="checkBox">
+                                <input id="ch1" type="checkbox">
+                                <div class="transition"></div>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                
-                Máximo de detecções: <input type="number" name="" id="">
+
+                <div class="button_container">
+                    <button class="submit_filter" type="submit">Aplicar</button>
+                </div>
             </form>
             <div class="detections_head" style="display: none;">
                 <div class="time">Hora</div>
@@ -93,7 +165,7 @@
         </div>
     </section>
 
-    <footer>
+    <footer class="live_detections">
         <div class="viewer_control">
             <p>Mostrar ultimas: </p>
             <div class="per_page active" onclick="ChangePerPageValue(this)">10</div>
@@ -102,7 +174,7 @@
         </div>
     </footer>
 
-    <script src="./scripts/services/html_services.js"></script>
+    <script src="./scripts/UI/html.settings.js"></script>
     <script src="./scripts/services/api_services.js"></script>
     <script src="./scripts/services/core_services.js"></script>
     <script src="./scripts/UI/ui_renders.js"></script>

@@ -1,4 +1,101 @@
-.filter_container {
-    margin: 1% 0%;
+div.filter_buttons {
+    margin-left: auto;
     display: flex;
+    gap: 8px;
+}
+
+button.filter_buttons {
+    display: flex;
+    white-space: nowrap; /* Não quebra linha */
+    align-items: center;
+    gap: 5%;
+    border: 2px solid rgba(255, 255, 255, 0.567);
+    background-color: transparent;
+    color: rgb(16, 166, 235);
+    padding: 0.4em 0.6em;
+    border-radius: 3px;
+
+    font-family: "Share Tech", sans-serif;
+    font-size: 12pt;
+    color: rgba(255, 255, 255, 0.567);
+    cursor: pointer;
+}
+
+button.filter_buttons svg {
+    width: 22px;
+    fill: rgba(255, 255, 255, 0.567);
+}
+
+.filter_container {
+    padding: 1%;
+    display: flex;
+    gap: 10px;
+}
+
+.datetime_forms_container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form_box {
+    display: flex;
+    align-items: center;
+}
+
+.input_box {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.348);
+    gap: 5px;
+}
+
+.input {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.301);
+    border-radius: 3px;
+    color: #ffffff;
+    padding: 4px;
+}
+
+.input:valid {
+    border: 1px solid rgba(23, 255, 232, 0.704);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(100%);  /* muda a cor do ícone */
+    opacity: 60%;
+    cursor: pointer;
+    padding: 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    margin: 0;
+    opacity: 40%;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+div.button_container {
+    display: flex;
+}
+
+div.button_container button {
+    height: 40%;
+    margin-top: auto;
+    border: 1px solid rgb(0, 140, 255);
+    background-color: transparent;
+    border-radius: 2px;
+
+    font-family: "Share Tech", sans-serif;
+    font-size: 10pt;
+    font-weight: 400;
+    color: rgb(0, 140, 255);
+    cursor: pointer;
 }

@@ -1,5 +1,5 @@
 async function Init() {
-	ConfirmPopup()
+	//ConfirmPopup()
 	await RenderLiveDetectionsController()
 	SubscribeDetectionEvents()
 }

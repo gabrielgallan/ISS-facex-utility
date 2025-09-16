@@ -1,8 +1,6 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100vh;
-    box-sizing: border-box;
 }
 
 body {
@@ -16,52 +14,4 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 1%;
-    gap: 1%;
-
-    background-color: rgba(0, 0, 0, 0.597);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.203);
-
-    font-family: "Share Tech", sans-serif;
-    font-size: 13pt;
-    color: white;
-}
-
-div.viewer_control {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 1%;
-}
-
-div.viewer_control p {
-    margin: 0;
-    padding: 0;
-}
-
-div.viewer_control div.per_page {
-    padding: 3px;
-    border: 2px solid rgb(12, 120, 221);
-    border-radius: 5px;
-    color: rgb(12, 120, 221);
-    font-size: 12pt;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all .1s ease;
-}
-
-div.viewer_control div.per_page.active {
-    background-color: rgb(12, 120, 221);
-    color: white;
-    box-shadow: 0px 0px 10px rgba(12, 120, 221, 0.399);
 }
