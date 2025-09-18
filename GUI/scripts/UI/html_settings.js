@@ -1,9 +1,11 @@
 //Elementos HTML
-const list = document.querySelector('ul.detections_logs_list')
+const DetectionsList = document.querySelector('ul.detections_logs_list')
 const checkBox = document.querySelector('input#ch1')
 const form = document.querySelector('form.filter_container')
 const liveFooter = document.querySelector('footer.live_detections')
-const filterButton = document.querySelector('button.filter_buttons.og')
+const filterButton = document.querySelector('button.header_but.filter')
+const liveButton = document.querySelector('button.header_but.live')
+const cleanFilterButton = document.querySelector('button.filter_but.clean')
 
 // Error POP-UP
 class ErrorPopup {
@@ -26,7 +28,7 @@ function ClosePopup() {
 }
 
 function ReloadPage() {
-    //location.reload()
+    location.reload()
 }
 
 // Comment POP-UP
@@ -41,16 +43,16 @@ async function ChangePerPageValue(element) {
         .forEach((b) => b.classList.remove('active'))
     element.classList.add('active')
 
-    env.MAX_VIEWS_PERPAGE = Number(element.innerText)
+    config.MAX_VIEWS_PERPAGE = Number(element.innerText)
     await RenderLiveDetectionsController()
 }
 
 //Efeito do scroll - Lista de detecções
-list.addEventListener('scroll', () => {
+DetectionsList.addEventListener('scroll', () => {
     const header = document.querySelector('div.detections_header')
     const head = document.querySelector('div.detections_head')
 
-    if (list.scrollTop > 0) { // ponto do scroll para ativar o efeito
+    if (DetectionsList.scrollTop > 0) { // ponto do scroll para ativar o efeito
         header.classList.add('scrolled')
         head.classList.add('scrolled')
     } else {
@@ -61,28 +63,29 @@ list.addEventListener('scroll', () => {
 
 //Funções do formulário de filtros
 function ChangeFilterForm() {
-    const form = document.querySelector('form.filter_container')
+    const state = form.style.display
+    form.style.display = state === 'none' ? 'flex' : 'none'
+}
 
-    if (form.style.display === 'flex') {
-        form.style.display = 'none'
-    }
-    else {
-        form.style.display = 'flex'
-    }
+function CleanFilterInputs() {
+    Array.from(form.elements)
+         .forEach(input => {
+            if (input.tagName === 'INPUT' && input.id !== 'ch1')
+                input.value = ''
+            if (input.id === 'ch1')
+                input.checked = false
+         })
 }
 
 checkBox.addEventListener('change', () => {
+    const maxCountDiv = document.querySelector('div.form_box.max')
+    const maxCountInput = document.querySelector('input.input.max')
     if (checkBox.checked) {
-        const maxCountDiv = document.querySelector('div.form_box.max')
-        const maxCountInput = document.querySelector('input.input.max')
-
         maxCountInput.value = 'Todos'
         maxCountDiv.style.pointerEvents = 'none'
         maxCountDiv.style.opacity = '0.4'
-    } else {
-        const maxCountDiv = document.querySelector('div.form_box.max')
-        const maxCountInput = document.querySelector('input.input.max')
-
+    }
+    else {
         maxCountInput.value = ''
         maxCountDiv.style.pointerEvents = ''
         maxCountDiv.style.opacity = '1'
@@ -93,7 +96,7 @@ form.addEventListener('submit', SubmitFilterController)
 
 async function SubmitFilterController(e) {
     e.preventDefault() // evita o envio real do form
-    filterButton.classList.add('filter_activate')
+    TurnFilteredMode()
 
     // Capturando valores dos inputs
     const start_time = DateFormFormatter((form.elements['start_date'].value), (form.elements['start_time'].value))
@@ -102,24 +105,29 @@ async function SubmitFilterController(e) {
     console.log({ start_time, end_time, max_count })
 
     //Renderiza a página
-    try {
-        UnSubscribeDetectionEvents()
-    } catch { }
-    liveFooter.style.display = 'none'
     await RenderFilteredDetectionsController(start_time, end_time, max_count)
-}
-
-async function ReturnLiveDetectionsMode() {
-    try {
-        SubscribeDetectionEvents()
-    } catch { }
-
-    liveFooter.style.display = 'flex'
-    await RenderLiveDetectionsController()
-    ChangeFilterForm()
-    filterButton.classList.remove('filter_activate')
 }
 
 function DateFormFormatter(date, time) {
     return date + 'T' + time + ':00.000'
+}
+
+function TurnFilteredMode() {
+    ProcessISS_Script(UnSubscribeDetectionEvents)
+    filterButton.classList.add('activate')
+    liveButton.classList.remove('activate')
+    cleanFilterButton.style.display = ''
+    liveFooter.style.display = 'none'
+}
+
+async function TurnLiveMode() {
+    ProcessISS_Script(SubscribeDetectionEvents)
+
+    CleanFilterInputs()
+    liveFooter.style.display = 'flex'
+    form.style.display = 'none'
+    filterButton.classList.remove('activate')
+    liveButton.classList.add('activate')
+    cleanFilterButton.style.display = 'none'
+    await RenderLiveDetectionsController()
 }

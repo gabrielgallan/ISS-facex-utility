@@ -1,7 +1,7 @@
 async function Init() {
-	//ConfirmPopup()
 	await RenderLiveDetectionsController()
-	SubscribeDetectionEvents()
+	ProcessISS_Script(RegisterEventsHandlers)
+	ProcessISS_Script(SubscribeDetectionEvents)
 }
 
 Init()

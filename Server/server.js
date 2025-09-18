@@ -1,15 +1,9 @@
 import app from "./app.js"
 import { env } from "./env/config.js"
-import cors from '@fastify/cors'
 import { SubscribeDetections } from "./services/receiveDetectionService.js"
 import chalk from "chalk"
 
 console.clear()
-
-await app.register(cors, {
-  origin: "*",
-  methods: ["GET", "POST"]
-})
 
 app.listen({
   port: env.PORT,

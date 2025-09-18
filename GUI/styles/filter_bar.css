@@ -1,17 +1,16 @@
-div.filter_buttons {
+div.buttons_container {
     margin-left: auto;
     display: flex;
     gap: 8px;
 }
 
-button.filter_buttons {
+button.header_but {
     display: flex;
     white-space: nowrap; /* Não quebra linha */
     align-items: center;
     gap: 5%;
     border: 2px solid rgba(255, 255, 255, 0.567);
     background-color: transparent;
-    color: rgb(16, 166, 235);
     padding: 0.4em 0.6em;
     border-radius: 3px;
 
@@ -19,9 +18,24 @@ button.filter_buttons {
     font-size: 12pt;
     color: rgba(255, 255, 255, 0.567);
     cursor: pointer;
+    transition: all .3s ease;
 }
 
-button.filter_buttons svg {
+button.header_but.activate {
+    padding: 0.3em 0.5em;
+    background-color: rgb(16, 166, 235);
+    color: white;
+    border: 2px solid rgb(16, 166, 235);
+    box-shadow: 0px 0px 10px rgba(5, 176, 255, 0.471);
+    fill: white;
+}
+
+.header_but.live {
+    color: rgb(12, 120, 221);
+    border-color: rgb(12, 120, 221);
+}
+
+button.header_but svg {
     width: 22px;
     fill: rgba(255, 255, 255, 0.567);
 }
@@ -82,20 +96,43 @@ input[type=number]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-div.button_container {
+div.filter_buttons {
     display: flex;
+    gap: 5%;
 }
 
-div.button_container button {
+div.filter_buttons button {
+    border: none;
     height: 40%;
     margin-top: auto;
-    border: 1px solid rgb(0, 140, 255);
     background-color: transparent;
     border-radius: 2px;
 
     font-family: "Share Tech", sans-serif;
     font-size: 10pt;
     font-weight: 400;
-    color: rgb(0, 140, 255);
+    white-space: nowrap;
+    
     cursor: pointer;
+    transition: all .2s ease;
+}
+
+button.submit {
+    color: rgb(0, 140, 255);
+}
+
+button.submit:hover {
+    background-color: rgb(0, 140, 255);
+    box-shadow: 0px 0px 10px rgba(0, 140, 255, 0.445);
+    color: rgb(255, 255, 255);
+}
+
+button.clean {
+    color: rgb(255, 0, 25);
+}
+
+button.clean:hover {
+    background-color: rgb(255, 0, 25);
+    box-shadow: 0px 0px 10px rgba(255, 0, 25, 0.471);
+    color: rgb(255, 255, 255);
 }

@@ -1,5 +1,4 @@
 function RenderDetectionLogs(detections) {
-    const DetectionsList = document.querySelector('ul.detections_logs_list')
     document.querySelector('div.detections_head').style.display = 'flex'
 
     DetectionsList.innerHTML = ''

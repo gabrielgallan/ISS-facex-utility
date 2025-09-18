@@ -1,3 +1,11 @@
+function ProcessISS_Script(script) {
+    try {
+        script()
+    } catch {
+        console.error(`Interface ISScustomAPI não foi reconhecida: at function ${script.name}`)
+    }
+}
+
 function ProccessISScustomAPI() {
     document.getElementById("IssMessageType").value = 2
     ISScustomAPI.onSetup(function (settings) {
@@ -8,9 +16,6 @@ function ProccessISScustomAPI() {
         document.getElementById("MapWindowId").value = jsonSettings.map_window_id
     })
 }
-
-ProccessISScustomAPI()
-
 function MakeLiveAddSequenceParams() {
     var cameras = document.getElementById("Cameras").value
     var params = {
@@ -23,7 +28,6 @@ function CamId() {
     cameras = cameras.split(',').join('|');
     return cameras.split('|')[0];
 }
-
 function SendMessage() {
     var issMsgType = document.getElementById("IssMessageType").value;
     var action = document.getElementById("Action").value;
@@ -48,3 +52,5 @@ function MakeFindObjectParams() {
     };
     return JSON.stringify(params);
 }
+
+ProcessISS_Script(ProccessISScustomAPI)

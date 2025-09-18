@@ -24,7 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Scripts de Configuração -->
-    <script src="./config/env.js"></script>
+    <script src="./config/config.js"></script>
     <script src="./config/iss.js"></script>
 
 </head>
@@ -64,11 +64,11 @@
             <div class="detections_header">
                 <img src="./assets/iss-logo.png" alt="">
                 <h1>SecurOS® FaceX Detections</h1>
-                <div class="filter_buttons">
-                    <button class="filter_buttons" onclick="ReturnLiveDetectionsMode()" style="color: rgb(12, 120, 221); border-color: rgb(12, 120, 221);">
+                <div class="buttons_container">
+                    <button class="header_but live activate" onclick="TurnLiveMode()">
                         Modo Live
                     </button>
-                    <button class="filter_buttons og" onclick="ChangeFilterForm()">
+                    <button class="header_but filter" onclick="ChangeFilterForm()">
                         Filtrar
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                             fill="#e3e3e3">
@@ -94,6 +94,7 @@
                             <input
                                 name="start_time"
                                 class="input time"
+                                value="00:00"
                                 type="time"
                                 autocomplete="off" 
                                 required
@@ -114,6 +115,7 @@
                             <input
                                 name="end_time"
                                 class="input time"
+                                value="00:00"
                                 type="time"
                                 autocomplete="off" 
                                 required
@@ -148,8 +150,9 @@
                     </div>
                 </div>
 
-                <div class="button_container">
-                    <button class="submit_filter" type="submit">Aplicar</button>
+                <div class="filter_buttons">
+                    <button class="filter_but clean" type="button" style="display: none;" onclick="TurnLiveMode()">Limpar filtros</button>
+                    <button class="filter_but submit" type="submit">Aplicar</button>
                 </div>
             </form>
             <div class="detections_head" style="display: none;">
@@ -174,7 +177,7 @@
         </div>
     </footer>
 
-    <script src="./scripts/UI/html.settings.js"></script>
+    <script src="./scripts/UI/html_settings.js"></script>
     <script src="./scripts/services/api_services.js"></script>
     <script src="./scripts/services/core_services.js"></script>
     <script src="./scripts/UI/ui_renders.js"></script>
