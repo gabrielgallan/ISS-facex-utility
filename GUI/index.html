@@ -11,12 +11,14 @@
     <link rel="stylesheet" href="./styles/detection_logs.css">
     <link rel="stylesheet" href="./styles/filter_bar.css">
     <link rel="stylesheet" href="./styles/filter_bar--chekbox.css">
+    <link rel="stylesheet" href="./styles/detection_page.css">
 
     <!-- Elementos Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Rajdhani:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
     <!-- Importação de Scripts ou Libs -->
@@ -83,43 +85,19 @@
                     <div class="form_box">
                         <span style="width: 10%;">De</span>
                         <div class="input_box">
-                            <input
-                                name="start_date"
-                                class="input date"
-                                type="date"
-                                autocomplete="off"
-                                required
-                            >
+                            <input name="start_date" class="input date" type="date" autocomplete="off" required>
                             -
-                            <input
-                                name="start_time"
-                                class="input time"
-                                value="00:00"
-                                type="time"
-                                autocomplete="off" 
-                                required
-                            >
+                            <input name="start_time" class="input time" value="00:00" type="time" autocomplete="off"
+                                required>
                         </div>
                     </div>
                     <div class="form_box">
                         <span style="width: 10%;">Até</span>
                         <div class="input_box">
-                            <input
-                                name="end_date"
-                                class="input date"
-                                type="date"
-                                autocomplete="off"
-                                required
-                            >
+                            <input name="end_date" class="input date" type="date" autocomplete="off" required>
                             -
-                            <input
-                                name="end_time"
-                                class="input time"
-                                value="00:00"
-                                type="time"
-                                autocomplete="off" 
-                                required
-                            >
+                            <input name="end_time" class="input time" value="00:00" type="time" autocomplete="off"
+                                required>
                         </div>
                     </div>
                 </div>
@@ -128,15 +106,8 @@
                     <div class="form_box max">
                         <span style="width: 17%;">Contagem máxima</span>
                         <div>
-                            <input
-                                name="max_count"
-                                type="text" 
-                                class="input max" 
-                                style="width: 20%;"
-                                pattern="^([A-Za-z]+|\d{1,4})$"
-                                placeholder="0"
-                                required
-                            >
+                            <input name="max_count" type="text" class="input max" style="width: 20%;"
+                                pattern="^([A-Za-z]+|\d{1,4})$" placeholder="0" required>
                         </div>
                     </div>
                     <div class="form_box">
@@ -151,11 +122,12 @@
                 </div>
 
                 <div class="filter_buttons">
-                    <button class="filter_but clean" type="button" style="display: none;" onclick="TurnLiveMode()">Limpar filtros</button>
+                    <button class="filter_but clean" type="button" style="display: none;"
+                        onclick="TurnLiveMode()">Limpar filtros</button>
                     <button class="filter_but submit" type="submit">Aplicar</button>
                 </div>
             </form>
-            <div class="detections_head" style="display: none;">
+            <div class="detections_head">
                 <div class="time">Hora</div>
                 <div class="event">Evento</div>
                 <div class="id">ID</div>
@@ -165,6 +137,49 @@
             <ul class="detections_logs_list">
 
             </ul>
+        </div>
+
+        <div class="detection_page_conteiner" style="display: none;">
+            <div class="detections_header">
+                <img src="./assets/iss-logo.png" alt="">
+                <h1>SecurOS® FaceX Detections</h1>
+                <div class="buttons_container">
+                    <button class="header_but id activate">
+                        ID
+                    </button>
+                    <button class="header_but return_live" onclick="TurnLiveMode()">
+                        Retornar Modo Live
+                    </button>
+                    <button class="header_but return_filter" onclick="ReturnToFilteredMode()">
+                        Voltar
+                    </button>
+                </div>
+            </div>
+            <div style="display: flex; height: 100%;">
+                <div class="detection_deteails_box">
+                    <header class="details">
+                        Detalhes da Detecção
+                    </header>
+                    <div class="details_content_box">
+                        <div class="collum_1">
+                            <img src="" alt="" class="face">
+                            <div class="details_text">
+                                <span class="title">Genero: <span class="info gender">--</span></span>
+                                <span class="title">Etnia: <span class="info etnia">--</span></span>
+                                <span class="title">Idade Estimada: <span class="info age">--</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="detection_image_box">
+                    <header class="image">
+                        Visualização da Imagem
+                    </header>
+                    <div class="image_content_box">
+                        <img src="" alt="" class="image">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -180,8 +195,8 @@
     <script src="./scripts/UI/html_settings.js"></script>
     <script src="./scripts/services/api_services.js"></script>
     <script src="./scripts/services/core_services.js"></script>
-    <script src="./scripts/UI/ui_renders.js"></script>
     <script src="./scripts/controllers.js"></script>
+    <script src="./scripts/UI/ui_renders.js"></script>
     <script src="./scripts/main.js"></script>
 
 </body>

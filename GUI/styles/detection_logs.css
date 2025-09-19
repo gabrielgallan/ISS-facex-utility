@@ -113,12 +113,6 @@ li.detection_log_card:hover {
     border: 1px solid rgba(255, 255, 255, 0.43);
 }
 
-li.detection_log_card:active {
-    background-color: rgb(16, 166, 235);
-    box-shadow: 0px 0px 10px rgb(16, 166, 235);
-    border: 1px solid transparent;
-}
-
 li.detection_log_card:active div {
     color: white;
 }

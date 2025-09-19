@@ -1,5 +1,8 @@
 function RenderDetectionLogs(detections) {
-    document.querySelector('div.detections_head').style.display = 'flex'
+    config.CURRENT_DETECTIONS = detections
+    
+    DetectionPage.style.display = 'none'
+    DetectionLogsContainer.style.display = ''
 
     DetectionsList.innerHTML = ''
     detections.forEach((detection) => {
@@ -12,7 +15,10 @@ function RenderDetectionLogs(detections) {
             <div class="card_camID">[${detection.cam_id}]</div>
             <div class="card_date">${EventDateFormatter(detection.event_timestamp).date}</div>
         `
-
+        card.addEventListener('click', () => {
+            card.style.border = '1px solid cyan'
+            RenderDetectionPageController(detection)
+        })
         DetectionsList.appendChild(card)
     })
 }
@@ -26,5 +32,10 @@ function EventDateFormatter(timestamp) {
 }
 
 function RenderDetectionPage(detection) {
-    
+    DetectionLogsContainer.style.display = 'none'
+    liveFooter.style.display = 'none'
+    DetectionPage.style.display = ''
+    document.querySelector('button.header_but.id').innerText = detection.id
+    document.querySelector('img.image').src = detection.image
+    document.querySelector('img.face').src = detection.face
 }

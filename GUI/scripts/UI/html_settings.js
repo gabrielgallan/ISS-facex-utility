@@ -1,5 +1,8 @@
 //Elementos HTML
 const DetectionsList = document.querySelector('ul.detections_logs_list')
+const DetectionsHead = document.querySelector('div.detections_head')
+const DetectionLogsContainer = document.querySelector('div.detections_logs_container')
+const DetectionPage = document.querySelector('div.detection_page_conteiner')
 const checkBox = document.querySelector('input#ch1')
 const form = document.querySelector('form.filter_container')
 const liveFooter = document.querySelector('footer.live_detections')
@@ -77,6 +80,36 @@ function CleanFilterInputs() {
          })
 }
 
+function SaveCurrentFilterParams(form) {
+    const inputs = Array.from(form.elements).filter(element => element.tagName === 'INPUT')
+    const values = inputs.map(input => {
+        if (input.id === 'ch1')
+            return { checkBox: input.checked }
+        else
+            return { [input.name]: input.value }
+    })
+
+    config.LAST_FILTER_CONFIG = values
+}
+
+function InsertLastFormValues() {
+    const lastValues = config.LAST_FILTER_CONFIG
+    lastValues.forEach((input) => {
+        const [key, value] = Object.entries(input)[0]
+        if (key === 'checkBox') {
+            checkBox.checked = value
+        } else {
+            form.elements[key].value = value
+        }
+    })
+}
+
+function ReturnToFilteredMode() {
+    InsertLastFormValues()
+    TurnFilteredMode()
+    RenderDetectionLogs(config.CURRENT_DETECTIONS)
+}
+
 checkBox.addEventListener('change', () => {
     const maxCountDiv = document.querySelector('div.form_box.max')
     const maxCountInput = document.querySelector('input.input.max')
@@ -97,12 +130,12 @@ form.addEventListener('submit', SubmitFilterController)
 async function SubmitFilterController(e) {
     e.preventDefault() // evita o envio real do form
     TurnFilteredMode()
+    SaveCurrentFilterParams(form)
 
     // Capturando valores dos inputs
     const start_time = DateFormFormatter((form.elements['start_date'].value), (form.elements['start_time'].value))
     const end_time = DateFormFormatter((form.elements['end_date'].value), (form.elements['end_time'].value))
     const max_count = form.elements['max_count'].value === 'Todos' ? null : form.elements['max_count'].value
-    console.log({ start_time, end_time, max_count })
 
     //Renderiza a página
     await RenderFilteredDetectionsController(start_time, end_time, max_count)
@@ -121,6 +154,7 @@ function TurnFilteredMode() {
 }
 
 async function TurnLiveMode() {
+    console.log('ativado')
     ProcessISS_Script(SubscribeDetectionEvents)
 
     CleanFilterInputs()

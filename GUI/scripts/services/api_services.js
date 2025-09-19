@@ -39,3 +39,26 @@ function NowDateISO() {
 
     return `${date}T${[correctHour, m, s].join(':')}`
 }
+
+async function GetDetectionImages(detection) {
+    try {
+        const image_url = config.API_SERVER + detection.image
+        const face_url = config.API_SERVER + detection.face
+        const image = await axios(image_url, {
+            responseType: 'blob'
+        })
+        const face = await axios(face_url, {
+            responseType: 'blob'
+        })
+
+        return { image: URL.createObjectURL(image.data), face: URL.createObjectURL(face.data) }
+    } catch (err) {
+        if (err.response) {
+            throw new Error('CODE03::Resposta do servidor - ' + err.response.data.message)
+        } else if (err.request) {
+            throw new Error('CODE03::Nenhuma resposta recebida do servidor')
+        } else {
+            throw new Error('CODE03::' + err.message)
+        }
+    }
+}
