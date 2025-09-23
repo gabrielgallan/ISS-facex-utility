@@ -1,5 +1,5 @@
 import DetectionServices from './services/detectionServices.js'
-import ImageServices from './services/imageServices.js'
+import External from './services/externalApiServices.js'
 import { DetectionSchema, IdSchema, ParamsQuerySchema } from './schemas/Detections.js'
 import { ParseDetectionEventToLog } from './middlewares/detectionEventHandler.js'
 import { TerminalLogHandler } from './utils/TerminalResponses.js'
@@ -34,7 +34,7 @@ async function routes(app) {
     app.get('/api/v1/detections/:id/image', async (request, reply) => {
         try {
             const id = IdSchema(request.params)
-            const image = await ImageServices.GetDetectionImage(id)
+            const image = await External.ImageServices.GetDetectionImage(id)
 
             reply.status(200)
                 .header("Content-Type", "image/jpeg")
@@ -47,11 +47,22 @@ async function routes(app) {
     app.get('/api/v1/detections/:id/face', async (request, reply) => {
         try {
             const id = IdSchema(request.params)
-            const face = await ImageServices.GetDetectionFace(id)
+            const face = await External.ImageServices.GetDetectionFace(id)
 
             reply.status(200)
                 .header("Content-Type", "image/jpeg")
                 .send(Buffer.from(face, "binary"))
+        } catch (err) {
+            reply.status(400).send({ status: 'failed', message: err.message })
+        }
+    })
+
+    app.get('/api/v1/detections/:id/details', async (request, reply) => {
+        try {
+            const id = IdSchema(request.params)
+            const details = await External.FaceXServerServices.GetDetectionDetails(id)
+
+            reply.status(200).send({ status: 'success', detection_details: details })
         } catch (err) {
             reply.status(400).send({ status: 'failed', message: err.message })
         }

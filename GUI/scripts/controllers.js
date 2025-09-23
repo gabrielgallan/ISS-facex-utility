@@ -26,9 +26,11 @@ async function RenderFilteredDetectionsController(start_time, end_time, max_coun
 async function RenderDetectionPageController(detection) {
     try {
         const images = await GetDetectionImages(detection)
+        const details = await GetDetectionDetails(detection.id)
         RenderDetectionPage({
             ...detection,
-            ...images
+            ...images,
+            ...details
         })
     } catch (err) {
         ApiErrorsController(err)

@@ -62,3 +62,20 @@ async function GetDetectionImages(detection) {
         }
     }
 }
+
+async function GetDetectionDetails(detection_id) {
+    try {
+        const url = config.API_SERVER + `/api/v1/detections/${detection_id}/details`
+        const response = await axios(url)
+        
+        return response.data.detection_details
+    } catch (err) {
+        if (err.response) {
+            throw new Error('CODE04::Resposta do servidor - ' + err.response.data.message)
+        } else if (err.request) {
+            throw new Error('CODE04::Nenhuma resposta recebida do servidor')
+        } else {
+            throw new Error('CODE04::' + err.message)
+        }
+    }
+}

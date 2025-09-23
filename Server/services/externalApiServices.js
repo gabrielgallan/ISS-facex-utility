@@ -2,6 +2,7 @@ import { env } from "../env/config.js"
 import { GetProxyImage } from "../middlewares/GetDetectionImage.js"
 import DetectionRepository from "../database/repository.js"
 import axios from "axios"
+import { ExtractDetectionDetails } from "../middlewares/ExtractDetailsInfos.js"
 
 async function GetDetectionImage(detection_id) {
     try {
@@ -14,7 +15,7 @@ async function GetDetectionImage(detection_id) {
         return image
     } catch (err) {
         if (err instanceof Error) throw new Error('Erro ao selecionar imagem da detecção: ' + err.message)
-        
+
         throw new Error('Erro ao selecionar imagem da detecção')
     }
 }
@@ -36,6 +37,22 @@ async function GetDetectionFace(detection_id) {
     }
 }
 
-const ImageServices = { GetDetectionImage, GetDetectionFace }
+async function GetDetectionDetails(detection_id) {
+    try {
+        const url = env.FACE_X_SERVER + `/v1/archive/detection/${detection_id}`
+        const response = await axios.get(url)
 
-export default ImageServices
+        return ExtractDetectionDetails(response.data)
+    } catch (err) {
+        if (err instanceof Error) throw new Error('Erro ao selecionar detalhes da detecção: ' + err.message)
+
+        throw new Error('Erro ao selecionar detalhes da detecção')
+    }
+}
+
+const External = {
+    ImageServices: { GetDetectionImage, GetDetectionFace },
+    FaceXServerServices: { GetDetectionDetails }
+}
+
+export default External

@@ -38,4 +38,9 @@ function RenderDetectionPage(detection) {
     document.querySelector('button.header_but.id').innerText = detection.id
     document.querySelector('img.image').src = detection.image
     document.querySelector('img.face').src = detection.face
+    const infos = document.querySelectorAll('span.info')
+    infos.forEach(span => {
+        const spanName = span.classList[1]
+        span.innerText = detection[spanName] !== null ? detection[spanName] : 'Não informado'
+    })
 }
