@@ -1,6 +1,6 @@
 import app from "./app.js"
 import { env } from "./env/config.js"
-import { SubscribeDetections } from "./services/receiveDetectionService.js"
+import { StartCamRecording ,GetFaceXCamsIds, SubscribeDetections } from "./services/restApiServices.js"
 import chalk from "chalk"
 
 console.clear()
@@ -14,4 +14,5 @@ app.listen({
     else
       console.log(`Server is running on ${chalk.blue(address)}`)
       SubscribeDetections(address)
+      GetFaceXCamsIds(StartCamRecording)
   })

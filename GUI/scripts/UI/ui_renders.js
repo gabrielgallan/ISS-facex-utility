@@ -1,6 +1,6 @@
 function RenderDetectionLogs(detections) {
     config.CURRENT_DETECTIONS = detections
-    
+
     DetectionPage.style.display = 'none'
     DetectionLogsContainer.style.display = ''
 
@@ -31,16 +31,23 @@ function EventDateFormatter(timestamp) {
     return { date: `${d}/${mo}`, time: `${h}:${min}` }
 }
 
-function RenderDetectionPage(detection) {
+async function RenderDetectionPage(detection) {
+    const ReturnFilteredModeButton = document.querySelector('button.header_but.return_filter')
+    if (!config.FILTERED_MODE) {
+        ReturnFilteredModeButton.style.display = 'none'
+    } else {
+        ReturnFilteredModeButton.style.display = ''
+    }
     DetectionLogsContainer.style.display = 'none'
     liveFooter.style.display = 'none'
-    DetectionPage.style.display = ''
-    document.querySelector('button.header_but.id').innerText = detection.id
+    document.querySelector('button.header_but.id').innerText = 'ID: ' + detection.id
     document.querySelector('img.image').src = detection.image
     document.querySelector('img.face').src = detection.face
     const infos = document.querySelectorAll('span.info')
-    infos.forEach(span => {
-        const spanName = span.classList[1]
-        span.innerText = detection[spanName] !== null ? detection[spanName] : 'Não informado'
+    infos.forEach(async (span) => {
+        span.innerText = ''
+        span.innerText = await TranslateStringController(detection[span.classList[1]])
     })
+    DetectionPage.style.display = ''
 }
+

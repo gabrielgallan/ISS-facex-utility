@@ -3,6 +3,7 @@ import { GetProxyImage } from "../middlewares/GetDetectionImage.js"
 import DetectionRepository from "../database/repository.js"
 import axios from "axios"
 import { ExtractDetectionDetails } from "../middlewares/ExtractDetailsInfos.js"
+import { RequestApiErrorsHandler } from "../middlewares/ApiErrorsHandlers.js"
 
 async function GetDetectionImage(detection_id) {
     try {
@@ -27,13 +28,8 @@ async function GetDetectionFace(detection_id) {
 
         return response.data
     } catch (err) {
-        if (err.response) {
-            throw new Error('Erro ao selecionar face: Resposta do servidor: ' + err.response.data.message)
-        } else if (err.request) {
-            throw new Error('Erro ao selecionar face: Nenhuma resposta recebida do servidor')
-        } else {
-            throw new Error('Erro ao selecionar face: ' + err.message)
-        }
+        const msg = RequestApiErrorsHandler(err, 'Erro ao selecionar face')
+        throw new Error(msg)
     }
 }
 

@@ -1,4 +1,5 @@
 //Elementos HTML
+const body = document.querySelector('body')
 const DetectionsList = document.querySelector('ul.detections_logs_list')
 const DetectionsHead = document.querySelector('div.detections_head')
 const DetectionLogsContainer = document.querySelector('div.detections_logs_container')
@@ -71,6 +72,7 @@ function ChangeFilterForm() {
 }
 
 function CleanFilterInputs() {
+    config.LAST_FILTER_CONFIG = null
     Array.from(form.elements)
          .forEach(input => {
             if (input.tagName === 'INPUT' && input.id !== 'ch1')
@@ -146,6 +148,7 @@ function DateFormFormatter(date, time) {
 }
 
 function TurnFilteredMode() {
+    config.FILTERED_MODE = true
     ProcessISS_Script(UnSubscribeDetectionEvents)
     filterButton.classList.add('activate')
     liveButton.classList.remove('activate')
@@ -154,7 +157,7 @@ function TurnFilteredMode() {
 }
 
 async function TurnLiveMode() {
-    console.log('ativado')
+    config.FILTERED_MODE = false
     ProcessISS_Script(SubscribeDetectionEvents)
 
     CleanFilterInputs()

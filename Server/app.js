@@ -7,11 +7,7 @@ import routes from './routes.js'
 
 const app = fastify()
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-// Caminho da pasta GUI
-export const gui_dirname = path.join(__dirname, '../')
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 await app.register(cors, {
   origin: "*",
@@ -19,7 +15,7 @@ await app.register(cors, {
 })
 
 await app.register(fastifyStatic, {
-  root: gui_dirname, // aponta para a pasta da interface
+  root: path.join(__dirname, '../GUI'), // aponta para a pasta da interface
   prefix: '/',
 })
 

@@ -67,7 +67,7 @@ async function GetDetectionDetails(detection_id) {
     try {
         const url = config.API_SERVER + `/api/v1/detections/${detection_id}/details`
         const response = await axios(url)
-        
+
         return response.data.detection_details
     } catch (err) {
         if (err.response) {
@@ -76,6 +76,31 @@ async function GetDetectionDetails(detection_id) {
             throw new Error('CODE04::Nenhuma resposta recebida do servidor')
         } else {
             throw new Error('CODE04::' + err.message)
+        }
+    }
+}
+
+async function TranslateString(string) {
+    try {
+        const url = config.TRANSLATION_API_SERVER + '/translate'
+        const body = {
+            q: string,
+            source: "en",
+            target: config.PAGE_LANGUAGE,
+            format: "text",
+            alternatives: 1,
+            api_key: ""
+        }
+
+        const response = await axios.post(url, body)
+        return response.data
+    } catch (err) {
+        if (err.response) {
+            throw new Error('CODE05::Resposta do servidor - ' + err.message)
+        } else if (err.request) {
+            throw new Error('CODE05::Nenhuma resposta recebida do servidor')
+        } else {
+            throw new Error('CODE05::' + err.message)
         }
     }
 }
