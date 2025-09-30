@@ -1,5 +1,4 @@
 async function RenderLiveDetectionsController() {
-
     try {
         const detections = await GetLiveDetections()
         liveFooter.style.display = 'flex'
@@ -17,6 +16,7 @@ async function RenderFilteredDetectionsController(start_time, end_time, max_coun
             detections = await GetApiDetections(start_time, end_time, max_count)
         else
             detections = await GetApiDetections(start_time, end_time)
+
         RenderDetectionLogs(detections)
     } catch (err) {
         ApiErrorsController(err)
@@ -38,15 +38,15 @@ async function RenderDetectionPageController(detection) {
 }
 
 async function TranslateStringController(string) {
-    try {
-        if (typeof string === 'number') return string
-        const correct = String(string).replace(/_/g, ' ').toLowerCase().replace(/^\w/, c => c.toUpperCase())
-        const translated = await TranslateString(correct)
-        return translated.translatedText
-    } catch (err) {
-        ApiErrorsController(err)
-        return correct
-    }
+    if (typeof string === 'number') return string
+    const correct = String(string).replace(/_/g, ' ').toLowerCase().replace(/^\w/, c => c.toUpperCase())
+        try {
+            const translated = await TranslateString(correct)
+            return translated.translatedText
+        } catch (err) {
+            ApiErrorsController(err)
+            return correct
+        }
 }
 
 function ApiErrorsController(err) {

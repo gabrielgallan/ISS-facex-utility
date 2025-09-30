@@ -1,5 +1,6 @@
 //Elementos HTML
 const body = document.querySelector('body')
+const section = document.querySelector('section')
 const DetectionsList = document.querySelector('ul.detections_logs_list')
 const DetectionsHead = document.querySelector('div.detections_head')
 const DetectionLogsContainer = document.querySelector('div.detections_logs_container')
@@ -16,12 +17,12 @@ class ErrorPopup {
     constructor(message) {
         this.popup = document.querySelector('div#error_popup')
         this.message = document.querySelector('p#error_text')
-
+        
         this.popup.style.display = 'flex'
         this.message.innerText = message
         console.error(message)
     }
-
+    
     close() {
         this.popup.style.display = 'none'
     }
@@ -40,11 +41,41 @@ function ConfirmPopup() {
     document.querySelector('div.confirm_popup').style.display = 'flex'
 }
 
+// Loader
+class Loader {
+    constructor({ classname = 'loader-container', parent = body } = {}) {
+        this.parent = parent
+        this.classname = classname
+        this._timeout = null
+        
+        this.element = this.parent.querySelector(`.${classname}`)
+    }
+    
+    show() {
+        if (this.element) this.element.style.display = ''
+    }
+    
+    hide() {
+        if (this._timeout) {
+            clearTimeout(this._timeout)
+            this._timeout = null
+        }
+        if (this.element) this.element.style.display = 'none'
+    }
+
+    closeIn(ms) {
+        if (this._timeout) clearTimeout(this._timeout)
+            this._timeout = setTimeout(() => this.hide(), ms)
+    }
+}
+
+const loader = new Loader()
+
 //Mudar a quantidade de logs visiveis
 async function ChangePerPageValue(element) {
     document
-        .querySelectorAll('div.per_page')
-        .forEach((b) => b.classList.remove('active'))
+    .querySelectorAll('div.per_page')
+    .forEach((b) => b.classList.remove('active'))
     element.classList.add('active')
 
     config.MAX_VIEWS_PERPAGE = Number(element.innerText)

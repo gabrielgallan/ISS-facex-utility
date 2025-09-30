@@ -32,6 +32,7 @@ function EventDateFormatter(timestamp) {
 }
 
 async function RenderDetectionPage(detection) {
+    loader.show()
     const ReturnFilteredModeButton = document.querySelector('button.header_but.return_filter')
     if (!config.FILTERED_MODE) {
         ReturnFilteredModeButton.style.display = 'none'
@@ -43,11 +44,17 @@ async function RenderDetectionPage(detection) {
     document.querySelector('button.header_but.id').innerText = 'ID: ' + detection.id
     document.querySelector('img.image').src = detection.image
     document.querySelector('img.face').src = detection.face
-    const infos = document.querySelectorAll('span.info')
-    infos.forEach(async (span) => {
-        span.innerText = ''
-        span.innerText = await TranslateStringController(detection[span.classList[1]])
-    })
+
+    await TryToTranslateInfos(detection)
+    loader.hide()
     DetectionPage.style.display = ''
 }
 
+async function TryToTranslateInfos(detection) {
+    const infos = document.querySelectorAll('span.info')
+    const promises = Array.from(infos).map(async (span) => {
+        span.innerText = ''
+        span.innerText = await TranslateStringController(detection[span.classList[1]])
+    })
+    await Promise.all(promises)
+}
