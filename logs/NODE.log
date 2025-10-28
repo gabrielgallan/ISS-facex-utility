@@ -1,0 +1,33 @@
+[2025-10-28T16:36:19.393Z] 
+> server@1.0.0 dev
+> node --watch server.js
+
+[2025-10-28T16:36:20.284Z] Server is running on http://127.0.0.1:3003
+[2025-10-28T16:36:20.301Z] DATABASE_CONNECT_PROCESS:  success
+[2025-10-28T16:36:23.322Z] file:///C:/Users/gabri/OneDrive%20-%20Intelligent%20Security%20Systems%20Corporation/Documentos/ISS_DEV/Repositories/facex-utility/Server/services/restApiServices.js:84
+        throw new Error(msg)
+              ^
+
+Error: Erro ao obter câmeras do servidor FaceX: Nenhuma resposta do servidor
+    at GetFaceXCamsIds (file:///C:/Users/gabri/OneDrive%20-%20Intelligent%20Security%20Systems%20Corporation/Documentos/ISS_DEV/Repositories/facex-utility/Server/services/restApiServices.js:84:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+Node.js v24.3.0
+[2025-10-28T16:36:23.335Z] Failed running 'server.js'. Waiting for file changes before restarting...
+[2025-10-28T16:42:46.082Z] 
+> server@1.0.0 dev
+> node --watch server.js
+
+[2025-10-28T16:42:46.806Z] Server is running on http://127.0.0.1:3003
+[2025-10-28T16:42:46.823Z] DATABASE_CONNECT_PROCESS:  success
+[2025-10-28T16:42:49.430Z] SUBSCRIPTION_PROCESS: failed | FACE_X_SERVER_ID: [1] | ERROR:  Erro ao inscrever eventos de detecções: Nenhuma resposta do servidor
+[2025-10-28T16:42:49.431Z] file:///C:/Users/gabri/OneDrive%20-%20Intelligent%20Security%20Systems%20Corporation/Documentos/ISS_DEV/Repositories/facex-utility/Server/services/restApiServices.js:84
+        throw new Error(msg)
+              ^
+
+Error: Erro ao obter câmeras do servidor FaceX: Nenhuma resposta do servidor
+    at GetFaceXCamsIds (file:///C:/Users/gabri/OneDrive%20-%20Intelligent%20Security%20Systems%20Corporation/Documentos/ISS_DEV/Repositories/facex-utility/Server/services/restApiServices.js:84:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+Node.js v24.3.0
+[2025-10-28T16:42:49.442Z] Failed running 'server.js'. Waiting for file changes before restarting...
