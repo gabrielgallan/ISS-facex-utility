@@ -6,3 +6,25 @@ INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
 [2025-10-28T16:42:46.537Z] INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 [2025-10-28T16:42:46.538Z] INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
+[2025-10-31T19:11:01.767Z] INFO:     Started server process [5800]
+INFO:     Waiting for application startup.
+[2025-10-31T19:11:01.767Z] INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
+[2025-10-31T19:19:05.278Z] INFO:     Started server process [15344]
+INFO:     Waiting for application startup.
+[2025-10-31T19:19:05.278Z] INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
+[2025-10-31T19:28:37.863Z] INFO:     Started server process [11384]
+[2025-10-31T19:28:37.864Z] INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+[2025-10-31T19:28:37.865Z] INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
+[2025-10-31T19:28:51.075Z] INFO:     127.0.0.1:58108 - "POST /proxy/task/detection_image HTTP/1.1" 408 Request Timeout
+[2025-10-31T19:29:00.341Z] INFO:     127.0.0.1:61935 - "POST /proxy/task/detection_image HTTP/1.1" 408 Request Timeout
+[2025-10-31T19:30:10.602Z] INFO:     Started server process [21048]
+INFO:     Waiting for application startup.
+[2025-10-31T19:30:10.603Z] INFO:     Application startup complete.
+[2025-10-31T19:30:10.603Z] INFO:     Uvicorn running on http://127.0.0.1:3002 (Press CTRL+C to quit)
+[2025-10-31T19:30:24.093Z] INFO:     127.0.0.1:51317 - "POST /proxy/task/detection_image HTTP/1.1" 408 Request Timeout
+[2025-10-31T19:30:42.900Z] INFO:     127.0.0.1:59926 - "POST /proxy/task/detection_image HTTP/1.1" 200 OK
+[2025-10-31T19:31:14.916Z] INFO:     127.0.0.1:54472 - "POST /proxy/task/detection_image HTTP/1.1" 200 OK
+[2025-10-31T19:32:12.654Z] INFO:     127.0.0.1:61980 - "POST /proxy/task/detection_image HTTP/1.1" 200 OK
